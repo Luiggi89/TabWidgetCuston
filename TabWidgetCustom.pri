@@ -1,2 +1,6 @@
-HEADERS += TabWidgetCustom.h
-SOURCES += TabWidgetCustom.cpp
+HEADERS += TabWidgetCustom.h \
+    $$PWD/TabBar/customtabbar.h
+SOURCES += TabWidgetCustom.cpp \
+    $$PWD/TabBar/customtabbar.cpp
+
+QT += widgets
