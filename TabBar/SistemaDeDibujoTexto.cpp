@@ -21,3 +21,28 @@ void SistemaDeDibujoTexto::dibujarTexto(QStylePainter &painter, QStyleOptionTab 
     painter.setPen(colorText);
     painter.drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, elidedText);//dibuja las letras
 }
+
+int SistemaDeDibujoTexto::getMargenDerechoTextoDerecho() const
+{
+    return margenDerechoTextoDerecho;
+}
+
+void SistemaDeDibujoTexto::setMargenDerechoTextoDerecho(int newMargenDerechoTextoDerecho)
+{
+    if (margenDerechoTextoDerecho == newMargenDerechoTextoDerecho)
+        return;
+    margenDerechoTextoDerecho = newMargenDerechoTextoDerecho;
+    emit margenDerechoTextoDerechoChanged();
+}
+
+QSize SistemaDeDibujoTexto::adaptarTextoConLaPestaña(QSize anchoDeLaPestanaIndividual, QString texTab, QFont fontText)
+{
+    QFontMetrics fm(fontText);
+    int anchoTexto = fm.horizontalAdvance(texTab) + margenDerechoTextoDerecho;
+
+    if (anchoDeLaPestanaIndividual.width() <= anchoTexto) {
+        return QSize(anchoTexto, anchoDeLaPestanaIndividual.height());
+    }
+    return anchoDeLaPestanaIndividual;
+
+}
