@@ -26,7 +26,7 @@ public:
     int getSensibilidad() const;
     void setSensibilidad(int newSensibilidad);
 
-    void sistemaDeScrollDeLTabBar(int velocidadDelScrol, int tabWidthX,int AnchoXPadre);
+    void sistemaDeScrollDeLTabBar(int velocidadDelScrol);
     void recalcularAnchoScrool(int tabWidthX, int AnchoXPadre);
 
 

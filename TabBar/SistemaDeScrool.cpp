@@ -30,7 +30,7 @@ void SistemaDeScrool::setSensibilidad(int newSensibilidad)
     emit sensibilidadChanged();
 }
 
-void SistemaDeScrool::sistemaDeScrollDeLTabBar(int velocidadDelScrol, int tabWidthX, int AnchoXPadre)
+void SistemaDeScrool::sistemaDeScrollDeLTabBar(int velocidadDelScrol)
 {
     movilidadDeScroll -= velocidadDelScrol / sensibilidad; // Ajusta la sensibilidad
 }
@@ -41,10 +41,11 @@ void SistemaDeScrool::recalcularAnchoScrool(int tabWidthX, int AnchoXPadre)
     int AnchoTotalDelContenedorDeLaPestana = tabWidthX;
     int movilidad = movilidadDeScroll;
     int maxScroll =  anchoAreaDeLaPestanaVisible - AnchoTotalDelContenedorDeLaPestana;
-    if (maxScroll > 0) {
+    if (maxScroll >= 0) {
         maxScroll= 0;
     }
     movilidadDeScroll = qBound(maxScroll, movilidad, 0);
+
 }
 
 

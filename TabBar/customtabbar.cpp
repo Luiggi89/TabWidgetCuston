@@ -109,7 +109,7 @@ void CustomTabBar::wheelEvent(QWheelEvent *event)
 {
     //delta() o angleDelta().y() según la versión de Qt
     int velocidadDelScrol = event->angleDelta().y();
-    sistemasDeScrool->sistemaDeScrollDeLTabBar(velocidadDelScrol, sizeHint().width(), parentWidget()->width());
+    sistemasDeScrool->sistemaDeScrollDeLTabBar(velocidadDelScrol);
     update(); // Repintar el widget
 }
 
