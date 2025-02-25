@@ -32,13 +32,15 @@ void SistemaDeScrool::setSensibilidad(int newSensibilidad)
 
 void SistemaDeScrool::sistemaDeScrollDeLTabBar(int velocidadDelScrol, int tabWidthX, int AnchoXPadre)
 {
-    int anchoAreaDeLaPestanaVisible = AnchoXPadre ;
-    int AnchoTotalDelContenedorDeLaPestana = tabWidthX;
-    int movilidad = movilidadDeScroll;
-    // Ajustar el offset: aumentar o disminuir según el scroll
-    movilidad -= velocidadDelScrol / sensibilidad; // Ajusta la sensibilidad
+    if (AnchoXPadre < tabWidthX) {
+        int anchoAreaDeLaPestanaVisible = AnchoXPadre ;
+        int AnchoTotalDelContenedorDeLaPestana = tabWidthX;
+        int movilidad = movilidadDeScroll;
+        // Ajustar el offset: aumentar o disminuir según el scroll
+        movilidad -= velocidadDelScrol / sensibilidad; // Ajusta la sensibilidad
 
-    int maxScroll = anchoAreaDeLaPestanaVisible - AnchoTotalDelContenedorDeLaPestana;
+        int maxScroll =  anchoAreaDeLaPestanaVisible -AnchoTotalDelContenedorDeLaPestana;
 
-    movilidadDeScroll = qBound(maxScroll, movilidad, 0);
+        movilidadDeScroll = qBound(maxScroll, movilidad, 0);
+    }
 }

@@ -18,11 +18,31 @@ void CustomTabBar::tabRemoved(int index)
     sistemaDeUbicacionPestana->EliminarInformacionPestana(index);
 }
 
+void CustomTabBar::dibujarPestanas(int numeroPestanas, QStylePainter &painter)
+{
+    QStyleOptionTab opt;
+    initStyleOption(&opt, numeroPestanas);
+    //Aplicar desplazamiento vertical
+    sistemaDeDibujaTexto->actualizarText(opt,this);
+    painter.drawControl(QStyle::CE_TabBarTab, opt); // dibuja el contenedor de la pestaña
+    sistemaDeDibujaTexto->dibujarTexto(painter,opt);
+}
+
 
 
 QSize CustomTabBar::tabSizeHint(int index) const
 {
     return sistemaDeUbicacionPestana->getAreaDeLaPestana();
+}
+
+QSize CustomTabBar::sizeHint() const
+{
+    int totalAreaDeLasPestanas = 0;
+    for (int var = 0; var < count(); ++var) {
+        totalAreaDeLasPestanas += sistemaDeUbicacionPestana->getAnchoIndividualPestanasX().at(var)
+                                  + sistemaDeUbicacionPestana->getMargenesEntrePestanasX().at(var);
+    }
+    return QSize(totalAreaDeLasPestanas, sistemaDeUbicacionPestana->getAreaDeLaPestana().height());
 }
 
 
@@ -37,7 +57,7 @@ void CustomTabBar::paintEvent(QPaintEvent *event)
 {
     QStylePainter painter(this);
     for (int i = 0; i < count(); ++i) {
-        // dibujarPestanas(i, painter);
+        dibujarPestanas(i, painter);
     }
 
     QWidget::paintEvent(event);  // Llama a la implementación base

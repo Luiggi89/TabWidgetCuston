@@ -21,7 +21,7 @@ private:
     QRect textRect;
     QString elidedText;
 
-private:
+public:
     void actualizarText(QStyleOptionTab &opt, QTabBar *tabBar);
     void dibujarTexto(QStylePainter &painter, QStyleOptionTab opt);
 

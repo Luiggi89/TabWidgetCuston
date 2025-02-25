@@ -25,6 +25,7 @@ protected:
 
     QSize minimumSizeHint() const override;
     QSize tabSizeHint(int index) const override;
+    QSize	sizeHint() const override;
 
 
     void tabInserted(int index) override;
@@ -35,6 +36,9 @@ public:
     SistemaDeUbicacionPestanas *sistemaDeUbicacionPestana = new SistemaDeUbicacionPestanas (this);
     SistemaDeEstiloPestanas *sistemaDeEstiloPestanas = new SistemaDeEstiloPestanas(this);
     SistemaDeScrool *sistemasDeScrool = new SistemaDeScrool(this);
+
+public:
+    void dibujarPestanas(int numeroPestanas, QStylePainter &painter);
 
 };
 
