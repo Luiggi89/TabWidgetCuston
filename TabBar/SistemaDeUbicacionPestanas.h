@@ -1,6 +1,8 @@
 #ifndef SISTEMADEUBICACIONPESTANAS_H
 #define SISTEMADEUBICACIONPESTANAS_H
 
+#pragma once
+
 #include <QObject>
 #include <QRect>
 #include <QSize>

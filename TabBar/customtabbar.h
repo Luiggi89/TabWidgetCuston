@@ -1,8 +1,13 @@
 #ifndef CUSTOMTABBAR_H
 #define CUSTOMTABBAR_H
+#pragma once
 
 #include <QTabBar>
+
+#include "SistemaDeDibujoTexto.h"
+#include "SistemaDeEstiloPestanas.h"
 #include "SistemaDeUbicacionPestanas.h"
+#include "SistemaDeScrool.h"
 
 class CustomTabBar : public QTabBar
 {
@@ -24,8 +29,12 @@ protected:
 
     void tabInserted(int index) override;
     void tabRemoved(int index) override;
-private:
+public:
+
+    SistemaDeDibujoTexto* sistemaDeDibujaTexto = new SistemaDeDibujoTexto(this);
     SistemaDeUbicacionPestanas *sistemaDeUbicacionPestana = new SistemaDeUbicacionPestanas (this);
+    SistemaDeEstiloPestanas *sistemaDeEstiloPestanas = new SistemaDeEstiloPestanas(this);
+    SistemaDeScrool *sistemasDeScrool = new SistemaDeScrool(this);
 
 };
 

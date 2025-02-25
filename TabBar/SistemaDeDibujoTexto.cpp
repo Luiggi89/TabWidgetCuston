@@ -1,10 +1,11 @@
 #include "SistemaDeDibujoTexto.h"
 
+
 SistemaDeDibujoTexto::SistemaDeDibujoTexto(QObject *parent)
     : QObject{parent}
 {}
 
-void SistemaDeDibujoTexto::actualizarText(QStyleOptionTab &opt, CustomTabBar *tabBar)
+void SistemaDeDibujoTexto::actualizarText(QStyleOptionTab &opt, QTabBar *tabBar)
 {
     textRect = tabBar->style()->subElementRect(QStyle::SE_TabBarTabText, &opt, tabBar);
     // Aplicar elipsis si el texto es más grande que el rectángulo disponible

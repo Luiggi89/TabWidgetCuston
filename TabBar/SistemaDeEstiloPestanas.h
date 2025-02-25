@@ -1,11 +1,14 @@
 #ifndef SISTEMADEESTILOPESTANAS_H
 #define SISTEMADEESTILOPESTANAS_H
 
-#include "customtabbar.h"
+#pragma once
+
 
 #include <QHoverEvent>
 #include <QObject>
 #include <QStyleOptionTab>
+
+class CustomTabBar;
 
 class SistemaDeEstiloPestanas : public QObject
 {
@@ -20,12 +23,10 @@ private:
     QPoint isMouseHover = reinicio;
     int cualPestanaPrecione = -1;
 
+
 public:
 
-    void actualizarEstiloDeLasPestanas(QStyleOptionTab *option, int tabIndex, const CustomTabBar* tabBar) const
-    {
-
-    }
+    void actualizarEstiloDeLasPestanas(QStyleOptionTab *option, int tabIndex, const CustomTabBar* tabBar) const;
     void hoverIsMauseHover(QHoverEvent *hoverEvent);
     void reinicioPointIsMauseHover();
     void IsPrecionePestanas(QPoint pointnext, CustomTabBar *tabBar);
