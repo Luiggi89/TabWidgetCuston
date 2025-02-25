@@ -12,6 +12,9 @@ void SistemaDeEstiloPestanas::actualizarEstiloDeLasPestanas(QStyleOptionTab *opt
 
     option->text = tabBar->tabText(tabIndex);
     QColor colorFondo = option->palette.color(QPalette::Window);
+
+    if (cambiarColor){colorFondo = colorFondoCambiar;}
+
     option->palette.setColor(QPalette::Window,colorFondo);
 
     if (tabBar->sistemaDeUbicacionPestana->getHitBOx_DE_La_Pestanas()[tabIndex].contains(isMouseHover))
@@ -66,4 +69,30 @@ void SistemaDeEstiloPestanas::setIsMouseHover(QPoint newIsMouseHover)
         return;
     isMouseHover = newIsMouseHover;
     emit isMouseHoverChanged();
+}
+
+QColor SistemaDeEstiloPestanas::getColorFondoCambiar() const
+{
+    return colorFondoCambiar;
+}
+
+void SistemaDeEstiloPestanas::setColorFondoCambiar(const QColor &newColorFondoCambiar)
+{
+    if (colorFondoCambiar == newColorFondoCambiar)
+        return;
+    colorFondoCambiar = newColorFondoCambiar;
+    emit colorFondoCambiarChanged();
+}
+
+bool SistemaDeEstiloPestanas::getCambiarColor() const
+{
+    return cambiarColor;
+}
+
+void SistemaDeEstiloPestanas::setCambiarColor(bool newCambiarColor)
+{
+    if (cambiarColor == newCambiarColor)
+        return;
+    cambiarColor = newCambiarColor;
+    emit cambiarColorChanged();
 }

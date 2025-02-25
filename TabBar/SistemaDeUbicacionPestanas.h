@@ -11,7 +11,6 @@ class SistemaDeUbicacionPestanas : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int separacionPestana READ getSeparacionPestana WRITE setSeparacionPestana NOTIFY separacionPestanaChanged FINAL)
-    Q_PROPERTY(int margenTextoPestana READ getMargenTextoPestana WRITE setMargenTextoPestana NOTIFY margenTextoPestanaChanged FINAL)
     Q_PROPERTY(QSize AreaDeLaPestana READ getAreaDeLaPestana WRITE setAreaDeLaPestana NOTIFY AreaDeLaPestanaChanged FINAL)
     Q_PROPERTY(QVector<int> anchoIndividualPestanasX READ getAnchoIndividualPestanasX WRITE setAnchoIndividualPestanasX NOTIFY anchoIndividualPestanasXChanged FINAL)
     Q_PROPERTY(QVector<int> margenesEntrePestanasX READ getMargenesEntrePestanasX WRITE setMargenesEntrePestanasX NOTIFY margenesEntrePestanasXChanged FINAL)
@@ -24,9 +23,6 @@ public:
 
     int getSeparacionPestana() const;
     void setSeparacionPestana(int newSeparacionPestana);
-
-    int getMargenTextoPestana() const;
-    void setMargenTextoPestana(int newMargenTextoPestana);
 
     QSize getAreaDeLaPestana() const;
     void setAreaDeLaPestana(const QSize &newAreaDeLaPestana);
@@ -56,7 +52,6 @@ public:
 
 private:
     int separacionPestana = 20;
-    int margenTextoPestana = 20;
     QSize AreaDeLaPestana = QSize (100,20);
 
     mutable QVector  <int> anchoIndividualPestanasX = {AreaDeLaPestana.width()};
@@ -68,7 +63,6 @@ private:
 
 signals:
     void separacionPestanaChanged();
-    void margenTextoPestanaChanged();
     void AreaDeLaPestanaChanged();
     void anchoIndividualPestanasXChanged();
     void margenesEntrePestanasXChanged();

@@ -13,6 +13,8 @@ void SistemaDeDibujoTexto::actualizarText(QStyleOptionTab &opt, QTabBar *tabBar)
     // Dibuja el texto alineado a la izquierda y centrado verticalmente
     colorText = opt.palette.color(QPalette::WindowText);
 
+    if (cambiarColorTexto) {colorText = colorTextoCambiar;}
+
     opt.text = "";//vaciar el texto
 }
 
@@ -33,6 +35,32 @@ void SistemaDeDibujoTexto::setMargenDerechoTextoDerecho(int newMargenDerechoText
         return;
     margenDerechoTextoDerecho = newMargenDerechoTextoDerecho;
     emit margenDerechoTextoDerechoChanged();
+}
+
+QColor SistemaDeDibujoTexto::getColorTextoCambiar() const
+{
+    return colorTextoCambiar;
+}
+
+void SistemaDeDibujoTexto::setColorTextoCambiar(const QColor &newColorTextoCambiar)
+{
+    if (colorTextoCambiar == newColorTextoCambiar)
+        return;
+    colorTextoCambiar = newColorTextoCambiar;
+    emit colorTextoCambiarChanged();
+}
+
+bool SistemaDeDibujoTexto::getCambiarColorTexto() const
+{
+    return cambiarColorTexto;
+}
+
+void SistemaDeDibujoTexto::setCambiarColorTexto(bool newCambiarColorTexto)
+{
+    if (cambiarColorTexto == newCambiarColorTexto)
+        return;
+    cambiarColorTexto = newCambiarColorTexto;
+    emit cambiarColorTextoChanged();
 }
 
 QSize SistemaDeDibujoTexto::adaptarTextoConLaPestaña(QSize anchoDeLaPestanaIndividual, QString texTab, QFont fontText)

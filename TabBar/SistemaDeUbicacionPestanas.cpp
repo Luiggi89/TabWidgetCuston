@@ -17,19 +17,6 @@ void SistemaDeUbicacionPestanas::setSeparacionPestana(int newSeparacionPestana)
     emit separacionPestanaChanged();
 }
 
-int SistemaDeUbicacionPestanas::getMargenTextoPestana() const
-{
-    return margenTextoPestana;
-}
-
-void SistemaDeUbicacionPestanas::setMargenTextoPestana(int newMargenTextoPestana)
-{
-    if (margenTextoPestana == newMargenTextoPestana)
-        return;
-    margenTextoPestana = newMargenTextoPestana;
-    emit margenTextoPestanaChanged();
-}
-
 QSize SistemaDeUbicacionPestanas::getAreaDeLaPestana() const
 {
     return AreaDeLaPestana;

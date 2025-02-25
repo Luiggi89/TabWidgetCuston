@@ -39,6 +39,7 @@ public:
 
 public:
     void dibujarPestanas(int numeroPestanas, QStylePainter &painter);
+    QSize resizeVoid();
 
 };
 

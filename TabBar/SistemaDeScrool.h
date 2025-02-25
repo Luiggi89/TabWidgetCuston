@@ -15,7 +15,7 @@ public:
     explicit SistemaDeScrool(QObject *parent = nullptr);
 
 private:
-    int movilidadDeScroll = 8;
+    int movilidadDeScroll = 0;
     int sensibilidad = 8;
 
 

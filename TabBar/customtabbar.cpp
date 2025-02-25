@@ -28,6 +28,16 @@ void CustomTabBar::dibujarPestanas(int numeroPestanas, QStylePainter &painter)
     sistemaDeDibujaTexto->dibujarTexto(painter,opt);
 }
 
+QSize CustomTabBar::resizeVoid()
+{
+    int totalAreaDeLasPestanas = 2;
+    for (int var = 0; var < count(); ++var) {
+        totalAreaDeLasPestanas += sistemaDeUbicacionPestana->getAnchoIndividualPestanasX().at(var)
+        + sistemaDeUbicacionPestana->getMargenesEntrePestanasX().at(var);
+    }
+    return QSize(totalAreaDeLasPestanas, sistemaDeUbicacionPestana->getAreaDeLaPestana().height());
+}
+
 
 
 QSize CustomTabBar::tabSizeHint(int index) const
