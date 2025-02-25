@@ -27,6 +27,7 @@ public:
     void setSensibilidad(int newSensibilidad);
 
     void sistemaDeScrollDeLTabBar(int velocidadDelScrol, int tabWidthX,int AnchoXPadre);
+    void recalcularAnchoScrool(int tabWidthX, int AnchoXPadre);
 
 
 signals:

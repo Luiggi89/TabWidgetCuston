@@ -37,7 +37,7 @@ QSize CustomTabBar::tabSizeHint(int index) const
 
 QSize CustomTabBar::sizeHint() const
 {
-    int totalAreaDeLasPestanas = 0;
+    int totalAreaDeLasPestanas = 2;
     for (int var = 0; var < count(); ++var) {
         totalAreaDeLasPestanas += sistemaDeUbicacionPestana->getAnchoIndividualPestanasX().at(var)
                                   + sistemaDeUbicacionPestana->getMargenesEntrePestanasX().at(var);
@@ -67,6 +67,7 @@ void CustomTabBar::paintEvent(QPaintEvent *event)
 
 void CustomTabBar::initStyleOption(QStyleOptionTab *option, int tabIndex) const
 {
+    sistemasDeScrool->recalcularAnchoScrool(sizeHint().width(), parentWidget()->width());
     sistemaDeUbicacionPestana->actulizarListaInforPestanas(tabIndex, count(), tabSizeHint(tabIndex).width(), sistemasDeScrool->getMovilidadDeScroll());
     option->rect = sistemaDeUbicacionPestana->getHitBOx_DE_La_Pestanas().at(tabIndex);
     sistemaDeEstiloPestanas->actualizarEstiloDeLasPestanas(option, tabIndex, this);
@@ -108,7 +109,7 @@ void CustomTabBar::wheelEvent(QWheelEvent *event)
 {
     //delta() o angleDelta().y() según la versión de Qt
     int velocidadDelScrol = event->angleDelta().y();
-    sistemasDeScrool->sistemaDeScrollDeLTabBar(velocidadDelScrol, width(), parentWidget()->width());
+    sistemasDeScrool->sistemaDeScrollDeLTabBar(velocidadDelScrol, sizeHint().width(), parentWidget()->width());
     update(); // Repintar el widget
 }
 
