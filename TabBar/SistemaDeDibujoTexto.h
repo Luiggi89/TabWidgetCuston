@@ -19,7 +19,7 @@ public:
     explicit SistemaDeDibujoTexto(QObject *parent = nullptr);
 
 private:
-    int margenDerechoTextoDerecho;
+    int margenDerechoTextoDerecho = 10;
 
     QColor colorText;
     QRect textRect;

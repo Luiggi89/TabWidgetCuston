@@ -32,7 +32,7 @@ void CustomTabBar::dibujarPestanas(int numeroPestanas, QStylePainter &painter)
 
 QSize CustomTabBar::tabSizeHint(int index) const
 {
-    return sistemaDeUbicacionPestana->getAreaDeLaPestana();
+    return sistemaDeDibujaTexto->adaptarTextoConLaPestaña(sistemaDeUbicacionPestana->getAreaDeLaPestana(),tabText(index), font());
 }
 
 QSize CustomTabBar::sizeHint() const
