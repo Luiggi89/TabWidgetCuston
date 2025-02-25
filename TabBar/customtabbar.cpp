@@ -2,7 +2,9 @@
 
 CustomTabBar::CustomTabBar(QWidget *parent)
     : QTabBar{parent}
-{}
+{
+    setMouseTracking(true);
+}
 
 
 void CustomTabBar::tabInserted(int index)
@@ -66,6 +68,7 @@ QSize CustomTabBar::minimumSizeHint() const
 void CustomTabBar::paintEvent(QPaintEvent *event)
 {
     QStylePainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
     for (int i = 0; i < count(); ++i) {
         dibujarPestanas(i, painter);
     }

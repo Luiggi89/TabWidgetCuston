@@ -18,10 +18,10 @@ void SistemaDeEstiloPestanas::actualizarEstiloDeLasPestanas(QStyleOptionTab *opt
     option->palette.setColor(QPalette::Window,colorFondo);
 
     if (tabBar->sistemaDeUbicacionPestana->getHitBOx_DE_La_Pestanas()[tabIndex].contains(isMouseHover))
-        option->state |= QStyle::State_MouseOver;
+        option->state |= QStyle::State_MouseOver ;
 
-    if (tabBar->isEnabled())
-        option->state &= ~QStyle::State_Enabled;
+   if (tabBar->isEnabled())
+        option->state |= QStyle::State_Enabled;
 
     if (cualPestanaPrecione == tabIndex)
         option->state |= QStyle::State_Selected;
