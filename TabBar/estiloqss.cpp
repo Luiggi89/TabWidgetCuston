@@ -4,6 +4,15 @@ EstiloQss::EstiloQss(QObject *parent)
     : QObject{parent}
 {}
 
+QString EstiloQss::estiloDeLetra(QFont letra)
+{
+    int tamanoDeLETRA = letra.pointSize();
+    QString tamanoDeletra = QString::number(tamanoDeLETRA);
+    QString grosorDeLetra = letra.styleName();
+    QString FamiliaDeLETRA = letra.family();
+    return "font:" + grosorDeLetra + tamanoDeletra + FamiliaDeLETRA + " ;";
+}
+
 QString EstiloQss::fondoTabBar(QColor fondo)
 {
     QString color = fondo.name();
@@ -67,9 +76,10 @@ QString EstiloQss::TabIndividualSelecionado(QString complementario)
     return "QTabBar::tab:selected {" + complementario + "};";
 }
 
-QString EstiloQss::TabInfomacionPredeterminado(QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
+QString EstiloQss::TabInfomacionPredeterminado(QFont fondDeLETRA, QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
 {
-    return TabIndividual(fondoTabBar(fondo)+
+    return TabIndividual(estiloDeLetra(fondDeLETRA) +
+                         fondoTabBar(fondo)+
                          colorBorde(colorBord)+
                          bordesRadiusIzquierdaArriba(radioIzquierdaArriba) +
                          bordesRadiusAbajoIzquierda(radioIzquierdaAbajo)+
@@ -77,9 +87,10 @@ QString EstiloQss::TabInfomacionPredeterminado(QColor fondo, QColor colorBord, i
                          bordesRadiusAbajoDerecha(radioDerechaAbajo));
 }
 
-QString EstiloQss::TabInformacionHover(QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
+QString EstiloQss::TabInformacionHover(QFont fondDeLETRA, QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
 {
-    return TabIndividualHover(fondoTabBar(fondo)+
+    return TabIndividualHover(estiloDeLetra(fondDeLETRA)+
+                              fondoTabBar(fondo)+
                               colorBorde(colorBord)+
                               bordesRadiusIzquierdaArriba(radioIzquierdaArriba) +
                               bordesRadiusAbajoIzquierda(radioIzquierdaAbajo)+
@@ -87,9 +98,9 @@ QString EstiloQss::TabInformacionHover(QColor fondo, QColor colorBord, int radio
                               bordesRadiusAbajoDerecha(radioDerechaAbajo));
 }
 
-QString EstiloQss::TabInformacionPresione(QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
+QString EstiloQss::TabInformacionPresione(QFont fondDeLETRA, QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
 {
-    return TabIndividualPresione(fondoTabBar(fondo)+
+    return TabIndividualPresione(estiloDeLetra(fondDeLETRA)+
                                  colorBorde(colorBord)+
                                  bordesRadiusIzquierdaArriba(radioIzquierdaArriba) +
                                  bordesRadiusAbajoIzquierda(radioIzquierdaAbajo)+
@@ -97,12 +108,189 @@ QString EstiloQss::TabInformacionPresione(QColor fondo, QColor colorBord, int ra
                                  bordesRadiusAbajoDerecha(radioDerechaAbajo));
 }
 
-QString EstiloQss::tabInformacionSelecionado(QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
+QString EstiloQss::tabInformacionSelecionado(QFont fondDeLETRA, QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
 {
-    return TabIndividualSelecionado(fondoTabBar(fondo)+
+    return TabIndividualSelecionado(estiloDeLetra(fondDeLETRA) + fondoTabBar(fondo)+
                                     colorBorde(colorBord)+
                                     bordesRadiusIzquierdaArriba(radioIzquierdaArriba) +
                                     bordesRadiusAbajoIzquierda(radioIzquierdaAbajo)+
                                     bordesRadiusDerechaArriba(radioDerechaArriba) +
                                     bordesRadiusAbajoDerecha(radioDerechaAbajo));
+}
+
+void EstiloQss::atualizacionDeEstado(CustomTabBar tabBar)
+{
+    tabBar.setStyleSheet(TabInfomacionPredeterminado(FondDeLetra,fondoTabPredeterminado,colorBordeTabPredeterminado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo) +
+                         TabInformacionHover(FondDeLetra,fondoTabHover,colorBordeTabHover,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo) +
+                         TabInformacionPresione(FondDeLetra,fondoTabPrecionado,colorBordeTabPrecionado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo)+
+                         tabInformacionSelecionado(FondDeLetra,fondoTabSelecionado,colorBordeTabSelecionado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo));
+}
+
+QFont EstiloQss::getFondDeLetra() const
+{
+    return FondDeLetra;
+}
+
+void EstiloQss::setFondDeLetra(const QFont &newFondDeLetra)
+{
+    if (FondDeLetra == newFondDeLetra)
+        return;
+    FondDeLetra = newFondDeLetra;
+    emit FondDeLetraChanged();
+}
+
+QColor EstiloQss::getFondoTabPredeterminado() const
+{
+    return fondoTabPredeterminado;
+}
+
+void EstiloQss::setFondoTabPredeterminado(const QColor &newFondoTabPredeterminado)
+{
+    if (fondoTabPredeterminado == newFondoTabPredeterminado)
+        return;
+    fondoTabPredeterminado = newFondoTabPredeterminado;
+    emit fondoTabPredeterminadoChanged();
+}
+
+QColor EstiloQss::getFondoTabHover() const
+{
+    return fondoTabHover;
+}
+
+void EstiloQss::setFondoTabHover(const QColor &newFondoTabHover)
+{
+    if (fondoTabHover == newFondoTabHover)
+        return;
+    fondoTabHover = newFondoTabHover;
+    emit fondoTabHoverChanged();
+}
+
+QColor EstiloQss::getFondoTabPrecionado() const
+{
+    return fondoTabPrecionado;
+}
+
+void EstiloQss::setFondoTabPrecionado(const QColor &newFondoTabPrecionado)
+{
+    if (fondoTabPrecionado == newFondoTabPrecionado)
+        return;
+    fondoTabPrecionado = newFondoTabPrecionado;
+    emit fondoTabPrecionadoChanged();
+}
+
+QColor EstiloQss::getFondoTabSelecionado() const
+{
+    return fondoTabSelecionado;
+}
+
+void EstiloQss::setFondoTabSelecionado(const QColor &newFondoTabSelecionado)
+{
+    if (fondoTabSelecionado == newFondoTabSelecionado)
+        return;
+    fondoTabSelecionado = newFondoTabSelecionado;
+    emit fondoTabSelecionadoChanged();
+}
+
+QColor EstiloQss::getColorBordeTabPredeterminado() const
+{
+    return colorBordeTabPredeterminado;
+}
+
+void EstiloQss::setColorBordeTabPredeterminado(const QColor &newColorBordeTabPredeterminado)
+{
+    if (colorBordeTabPredeterminado == newColorBordeTabPredeterminado)
+        return;
+    colorBordeTabPredeterminado = newColorBordeTabPredeterminado;
+    emit colorBordeTabPredeterminadoChanged();
+}
+
+QColor EstiloQss::getColorBordeTabHover() const
+{
+    return colorBordeTabHover;
+}
+
+void EstiloQss::setColorBordeTabHover(const QColor &newColorBordeTabHover)
+{
+    if (colorBordeTabHover == newColorBordeTabHover)
+        return;
+    colorBordeTabHover = newColorBordeTabHover;
+    emit colorBordeTabHoverChanged();
+}
+
+QColor EstiloQss::getColorBordeTabSelecionado() const
+{
+    return colorBordeTabSelecionado;
+}
+
+void EstiloQss::setColorBordeTabSelecionado(const QColor &newColorBordeTabSelecionado)
+{
+    if (colorBordeTabSelecionado == newColorBordeTabSelecionado)
+        return;
+    colorBordeTabSelecionado = newColorBordeTabSelecionado;
+    emit colorBordeTabSelecionadoChanged();
+}
+
+int EstiloQss::getRadioIzquierdoArriba() const
+{
+    return radioIzquierdoArriba;
+}
+
+void EstiloQss::setRadioIzquierdoArriba(int newRadioIzquierdoArriba)
+{
+    if (radioIzquierdoArriba == newRadioIzquierdoArriba)
+        return;
+    radioIzquierdoArriba = newRadioIzquierdoArriba;
+    emit radioIzquierdoArribaChanged();
+}
+
+int EstiloQss::getRadioIzquierdoAbajo() const
+{
+    return radioIzquierdoAbajo;
+}
+
+void EstiloQss::setRadioIzquierdoAbajo(int newRadioIzquierdoAbajo)
+{
+    if (radioIzquierdoAbajo == newRadioIzquierdoAbajo)
+        return;
+    radioIzquierdoAbajo = newRadioIzquierdoAbajo;
+    emit radioIzquierdoAbajoChanged();
+}
+
+int EstiloQss::getRadioDerechoArriba() const
+{
+    return radioDerechoArriba;
+}
+
+void EstiloQss::setRadioDerechoArriba(int newRadioDerechoArriba)
+{
+    if (radioDerechoArriba == newRadioDerechoArriba)
+        return;
+    radioDerechoArriba = newRadioDerechoArriba;
+    emit radioDerechoArribaChanged();
+}
+
+int EstiloQss::getRadioDerechoAbajo() const
+{
+    return radioDerechoAbajo;
+}
+
+void EstiloQss::setRadioDerechoAbajo(int newRadioDerechoAbajo)
+{
+    if (radioDerechoAbajo == newRadioDerechoAbajo)
+        return;
+    radioDerechoAbajo = newRadioDerechoAbajo;
+    emit radioDerechoAbajoChanged();
+}
+
+QColor EstiloQss::getColorBordeTabPrecionado() const
+{
+    return colorBordeTabPrecionado;
+}
+
+void EstiloQss::setColorBordeTabPrecionado(const QColor &newColorBordeTabPrecionado)
+{
+    if (colorBordeTabPrecionado == newColorBordeTabPrecionado)
+        return;
+    colorBordeTabPrecionado = newColorBordeTabPrecionado;
+    emit colorBordeTabPrecionadoChanged();
 }
