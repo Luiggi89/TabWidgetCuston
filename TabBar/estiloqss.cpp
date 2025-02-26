@@ -118,12 +118,18 @@ QString EstiloQss::tabInformacionSelecionado(QFont fondDeLETRA, QColor fondo, QC
                                     bordesRadiusAbajoDerecha(radioDerechaAbajo));
 }
 
-void EstiloQss::atualizacionDeEstado(CustomTabBar tabBar)
+void EstiloQss::atualizacionDeEstado(CustomTabBar *tabBar)
 {
-    tabBar.setStyleSheet(TabInfomacionPredeterminado(FondDeLetra,fondoTabPredeterminado,colorBordeTabPredeterminado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo) +
-                         TabInformacionHover(FondDeLetra,fondoTabHover,colorBordeTabHover,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo) +
-                         TabInformacionPresione(FondDeLetra,fondoTabPrecionado,colorBordeTabPrecionado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo)+
-                         tabInformacionSelecionado(FondDeLetra,fondoTabSelecionado,colorBordeTabSelecionado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo));
+    if (activacion == PorDefecto)
+    {
+        tabBar->setStyleSheet("");
+    }else if (activacion == Modificar) {
+        tabBar->setStyleSheet(TabInfomacionPredeterminado(FondDeLetra,fondoTabPredeterminado,colorBordeTabPredeterminado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo) +
+                             TabInformacionHover(FondDeLetra,fondoTabHover,colorBordeTabHover,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo) +
+                             TabInformacionPresione(FondDeLetra,fondoTabPrecionado,colorBordeTabPrecionado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo)+
+                             tabInformacionSelecionado(FondDeLetra,fondoTabSelecionado,colorBordeTabSelecionado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo));
+    }
+
 }
 
 QFont EstiloQss::getFondDeLetra() const
@@ -293,4 +299,17 @@ void EstiloQss::setColorBordeTabPrecionado(const QColor &newColorBordeTabPrecion
         return;
     colorBordeTabPrecionado = newColorBordeTabPrecionado;
     emit colorBordeTabPrecionadoChanged();
+}
+
+EstiloQss::ActivacionCustom EstiloQss::getActivacion() const
+{
+    return activacion;
+}
+
+void EstiloQss::setActivacion(ActivacionCustom newActivacion)
+{
+    if (activacion == newActivacion)
+        return;
+    activacion = newActivacion;
+    emit activacionChanged();
 }

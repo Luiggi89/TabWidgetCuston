@@ -6,6 +6,7 @@
 #include "TabBar/SistemaDeDibujoTexto.h"
 #include "TabBar/SistemaDeEstiloPestanas.h"
 #include "TabBar/SistemaDeScrool.h"
+#include "TabBar/estiloqss.h"
 
 class TabWidgetCustom : public QTabWidget
 {
@@ -20,7 +21,24 @@ class TabWidgetCustom : public QTabWidget
     Q_PROPERTY(bool cambiarColorFondo READ getCambiarColorFondo WRITE setCambiarColorFondo NOTIFY cambiarColorFondoChanged FINAL)
     Q_PROPERTY(int sencibilidad READ getSencibilidad WRITE setSencibilidad NOTIFY sencibilidadChanged FINAL)
 
+
+    Q_PROPERTY(EstiloQss::ActivacionCustom estiloDePestanas READ getEstiloDePestanas WRITE setEstiloDePestanas NOTIFY estiloDePestanasChanged FINAL)
+    Q_PROPERTY(QFont FondDeLetra READ getFondDeLetra WRITE setFondDeLetra NOTIFY FondDeLetraChanged FINAL)
+    Q_PROPERTY(QColor fondoTabPredeterminado READ getFondoTabPredeterminado WRITE setFondoTabPredeterminado NOTIFY fondoTabPredeterminadoChanged FINAL)
+    Q_PROPERTY(QColor fondoTabHover READ getFondoTabHover WRITE setFondoTabHover NOTIFY fondoTabHoverChanged FINAL)
+    Q_PROPERTY(QColor fondoTabPrecionado READ getFondoTabPrecionado WRITE setFondoTabPrecionado NOTIFY fondoTabPrecionadoChanged FINAL)
+    Q_PROPERTY(QColor fondoTabSelecionado READ getFondoTabSelecionado WRITE setFondoTabSelecionado NOTIFY fondoTabSelecionadoChanged FINAL)
+    Q_PROPERTY(QColor colorBordeTabPredeterminado READ getColorBordeTabPredeterminado WRITE setColorBordeTabPredeterminado NOTIFY colorBordeTabPredeterminadoChanged FINAL)
+    Q_PROPERTY(QColor colorBordeTabHover READ getColorBordeTabHover WRITE setColorBordeTabHover NOTIFY colorBordeTabHoverChanged FINAL)
+    Q_PROPERTY(QColor colorBordeTabPrecionado READ getColorBordeTabPrecionado WRITE setColorBordeTabPrecionado NOTIFY colorBordeTabPrecionadoChanged FINAL)
+    Q_PROPERTY(QColor colorBordeTabSelecionado READ getColorBordeTabSelecionado WRITE setColorBordeTabSelecionado NOTIFY colorBordeTabSelecionadoChanged FINAL)
+    Q_PROPERTY(int radioIzquierdoArriba READ getRadioIzquierdoArriba WRITE setRadioIzquierdoArriba NOTIFY radioIzquierdoArribaChanged FINAL)
+    Q_PROPERTY(int radioIzquierdoAbajo READ getRadioIzquierdoAbajo WRITE setRadioIzquierdoAbajo NOTIFY radioIzquierdoAbajoChanged FINAL)
+    Q_PROPERTY(int radioDerechoArriba READ getRadioDerechoArriba WRITE setRadioDerechoArriba NOTIFY radioDerechoArribaChanged FINAL)
+    Q_PROPERTY(int radioDerechoAbajo READ getRadioDerechoAbajo WRITE setRadioDerechoAbajo NOTIFY radioDerechoAbajoChanged FINAL)
+
 public:
+
     explicit TabWidgetCustom(QWidget *parent = nullptr);
 
     QSize getAreaDePestanas() const;
@@ -47,6 +65,50 @@ public:
     int getSencibilidad() const;
     void setSencibilidad(int newSencibilidad);
 
+    EstiloQss::ActivacionCustom getEstiloDePestanas() const;
+    void setEstiloDePestanas(EstiloQss::ActivacionCustom newEstiloDePestanas);
+
+    QFont getFondDeLetra() const;
+    void setFondDeLetra(const QFont &newFondDeLetra);
+
+    QColor getFondoTabPredeterminado() const;
+    void setFondoTabPredeterminado(const QColor &newFondoTabPredeterminado);
+
+    QColor getFondoTabHover() const;
+    void setFondoTabHover(const QColor &newFondoTabHover);
+
+    QColor getFondoTabPrecionado() const;
+    void setFondoTabPrecionado(const QColor &newFondoTabPrecionado);
+
+    QColor getFondoTabSelecionado() const;
+    void setFondoTabSelecionado(const QColor &newFondoTabSelecionado);
+
+    QColor getColorBordeTabPredeterminado() const;
+    void setColorBordeTabPredeterminado(const QColor &newColorBordeTabPredeterminado);
+
+    QColor getColorBordeTabHover() const;
+    void setColorBordeTabHover(const QColor &newColorBordeTabHover);
+
+    QColor getColorBordeTabPrecionado() const;
+    void setColorBordeTabPrecionado(const QColor &newColorBordeTabPrecionado);
+
+    QColor getColorBordeTabSelecionado() const;
+    void setColorBordeTabSelecionado(const QColor &newColorBordeTabSelecionado);
+
+    int getRadioIzquierdoArriba() const;
+    void setRadioIzquierdoArriba(int newRadioIzquierdoArriba);
+
+    int getRadioIzquierdoAbajo() const;
+    void setRadioIzquierdoAbajo(int newRadioIzquierdoAbajo);
+
+    int getRadioDerechoArriba() const;
+    void setRadioDerechoArriba(int newRadioDerechoArriba);
+
+    int getRadioDerechoAbajo() const;
+    void setRadioDerechoAbajo(int newRadioDerechoAbajo);
+
+
+
 signals:
     void areaDePestanasChanged();
     void separacionEntrePestanaChanged();
@@ -56,12 +118,29 @@ signals:
     void ColorFondoChanged();
     void cambiarColorFondoChanged();
     void sencibilidadChanged();
+    void estiloDePestanasChanged();
+    void FondDeLetraChanged();
+    void fondoTabPredeterminadoChanged();
+    void fondoTabHoverChanged();
+    void fondoTabPrecionadoChanged();
+    void fondoTabSelecionadoChanged();
+    void colorBordeTabPredeterminadoChanged();
+    void colorBordeTabHoverChanged();
+    void colorBordeTabPrecionadoChanged();
+    void colorBordeTabSelecionadoChanged();
+    void radioIzquierdoArribaChanged();
+    void radioIzquierdoAbajoChanged();
+    void radioDerechoArribaChanged();
+    void radioDerechoAbajoChanged();
+
 private:
     CustomTabBar *tabBar = new CustomTabBar(this);
     SistemaDeDibujoTexto* sistemaDeDibujosTexto = tabBar->sistemaDeDibujaTexto;
     SistemaDeEstiloPestanas *sistemaDeEstiloPestanas = tabBar->sistemaDeEstiloPestanas;
     SistemaDeUbicacionPestanas *sistemaDeUbicacionPestanas = tabBar->sistemaDeUbicacionPestana;
     SistemaDeScrool *sistemaDeScrool = tabBar->sistemasDeScrool;
+
+    EstiloQss* estiloQss = new EstiloQss(this);
 
     //--------------------------------------tabUbicacion-------------------------------//
     QSize areaDePestanas = sistemaDeUbicacionPestanas->getAreaDeLaPestana();
@@ -81,6 +160,36 @@ private:
     //-------------------------------------tabSistemaDeScrool------------------------------------//
 
     int sencibilidad = sistemaDeScrool->getSensibilidad();
+
+    //-------------------------------------tabSistemaDeEstiloQssPestanas------------------------//
+
+    EstiloQss::ActivacionCustom estiloDePestanas = estiloQss->getActivacion();
+
+    //Qfont
+
+    QFont FondDeLetra = estiloQss->getFondDeLetra();
+
+    //fondo e tabBar
+
+    QColor fondoTabPredeterminado = estiloQss->getFondoTabPredeterminado();
+    QColor fondoTabHover = estiloQss->getFondoTabHover();
+    QColor fondoTabPrecionado = estiloQss->getFondoTabPrecionado();
+    QColor fondoTabSelecionado = estiloQss->getFondoTabSelecionado();
+
+    //color Borde
+
+    QColor colorBordeTabPredeterminado = estiloQss->getColorBordeTabPredeterminado();
+    QColor colorBordeTabHover = estiloQss->getColorBordeTabHover();
+    QColor colorBordeTabPrecionado = estiloQss->getColorBordeTabPrecionado();
+    QColor colorBordeTabSelecionado = estiloQss->getColorBordeTabSelecionado();
+
+    //Radios de LosBrodes
+
+    int radioIzquierdoArriba = estiloQss->getRadioIzquierdoArriba();
+    int radioIzquierdoAbajo = estiloQss->getRadioIzquierdoAbajo();
+    int radioDerechoArriba = estiloQss->getRadioDerechoArriba();
+    int radioDerechoAbajo = estiloQss->getRadioDerechoAbajo();
+
 
 };
 

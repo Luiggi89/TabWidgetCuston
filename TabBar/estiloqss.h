@@ -10,6 +10,8 @@ class EstiloQss : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(ActivacionCustom activacion READ getActivacion WRITE setActivacion NOTIFY activacionChanged FINAL)
+
     Q_PROPERTY(QFont FondDeLetra READ getFondDeLetra WRITE setFondDeLetra NOTIFY FondDeLetraChanged FINAL)
 
     Q_PROPERTY(QColor fondoTabPredeterminado READ getFondoTabPredeterminado WRITE setFondoTabPredeterminado NOTIFY fondoTabPredeterminadoChanged FINAL)
@@ -31,6 +33,12 @@ class EstiloQss : public QObject
 
 
 public:
+    enum ActivacionCustom
+    {
+        PorDefecto,
+        Modificar
+    };
+
     explicit EstiloQss(QObject *parent = nullptr);
 
     QString estiloDeLetra (QFont letra);
@@ -55,6 +63,9 @@ public:
     QString tabInformacionSelecionado(QFont fondDeLETRA,QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo);
 
 private:
+
+    ActivacionCustom activacion = PorDefecto;
+
     //Qfont
 
     QFont FondDeLetra;
@@ -82,8 +93,9 @@ private:
 
 
 
+
 public:
-    void atualizacionDeEstado(CustomTabBar tabBar);
+    void atualizacionDeEstado(CustomTabBar *tabBar);
 
     QFont getFondDeLetra() const;
     void setFondDeLetra(const QFont &newFondDeLetra);
@@ -123,6 +135,9 @@ public:
     QColor getColorBordeTabPrecionado() const;
     void setColorBordeTabPrecionado(const QColor &newColorBordeTabPrecionado);
 
+    ActivacionCustom getActivacion() const;
+    void setActivacion(ActivacionCustom newActivacion);
+
 signals:
     void FondDeLetraChanged();
     void fondoTabPredeterminadoChanged();
@@ -137,6 +152,7 @@ signals:
     void radioDerechoArribaChanged();
     void radioDerechoAbajoChanged();
     void colorBordeTabPrecionadoChanged();
+    void activacionChanged();
 };
 
 #endif // ESTILOQSS_H
