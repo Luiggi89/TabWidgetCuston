@@ -10,7 +10,7 @@ class EstiloQss : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(ActivacionCustom activacion READ getActivacion WRITE setActivacion NOTIFY activacionChanged FINAL)
+    Q_PROPERTY(bool activacionCustom READ getActivacionCustom WRITE setActivacionCustom NOTIFY activacionCustomChanged FINAL)
 
     Q_PROPERTY(QFont FondDeLetra READ getFondDeLetra WRITE setFondDeLetra NOTIFY FondDeLetraChanged FINAL)
 
@@ -33,11 +33,6 @@ class EstiloQss : public QObject
 
 
 public:
-    enum ActivacionCustom
-    {
-        PorDefecto,
-        Modificar
-    };
 
     explicit EstiloQss(QObject *parent = nullptr);
 
@@ -64,7 +59,7 @@ public:
 
 private:
 
-    ActivacionCustom activacion = PorDefecto;
+    bool activacionCustom = false;
 
     //Qfont
 
@@ -90,6 +85,7 @@ private:
     int radioIzquierdoAbajo = 1;
     int radioDerechoArriba = 1;
     int radioDerechoAbajo = 1;
+
 
 
 
@@ -135,8 +131,8 @@ public:
     QColor getColorBordeTabPrecionado() const;
     void setColorBordeTabPrecionado(const QColor &newColorBordeTabPrecionado);
 
-    ActivacionCustom getActivacion() const;
-    void setActivacion(ActivacionCustom newActivacion);
+    bool getActivacionCustom() const;
+    void setActivacionCustom(bool newActivacionCustom);
 
 signals:
     void FondDeLetraChanged();
@@ -153,6 +149,7 @@ signals:
     void radioDerechoAbajoChanged();
     void colorBordeTabPrecionadoChanged();
     void activacionChanged();
+    void activacionCustomChanged();
 };
 
 #endif // ESTILOQSS_H

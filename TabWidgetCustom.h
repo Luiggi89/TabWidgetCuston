@@ -21,8 +21,7 @@ class TabWidgetCustom : public QTabWidget
     Q_PROPERTY(bool cambiarColorFondo READ getCambiarColorFondo WRITE setCambiarColorFondo NOTIFY cambiarColorFondoChanged FINAL)
     Q_PROPERTY(int sencibilidad READ getSencibilidad WRITE setSencibilidad NOTIFY sencibilidadChanged FINAL)
 
-
-    Q_PROPERTY(EstiloQss::ActivacionCustom estiloDePestanas READ getEstiloDePestanas WRITE setEstiloDePestanas NOTIFY estiloDePestanasChanged FINAL)
+    Q_PROPERTY(bool activacionCustomEstiloQss READ getActivacionCustomEstiloQss WRITE setActivacionCustomEstiloQss NOTIFY activacionCustomEstiloQssChanged FINAL)
     Q_PROPERTY(QFont FondDeLetra READ getFondDeLetra WRITE setFondDeLetra NOTIFY FondDeLetraChanged FINAL)
     Q_PROPERTY(QColor fondoTabPredeterminado READ getFondoTabPredeterminado WRITE setFondoTabPredeterminado NOTIFY fondoTabPredeterminadoChanged FINAL)
     Q_PROPERTY(QColor fondoTabHover READ getFondoTabHover WRITE setFondoTabHover NOTIFY fondoTabHoverChanged FINAL)
@@ -38,8 +37,8 @@ class TabWidgetCustom : public QTabWidget
     Q_PROPERTY(int radioDerechoAbajo READ getRadioDerechoAbajo WRITE setRadioDerechoAbajo NOTIFY radioDerechoAbajoChanged FINAL)
 
 public:
-
     explicit TabWidgetCustom(QWidget *parent = nullptr);
+
 
     QSize getAreaDePestanas() const;
     void setAreaDePestanas(const QSize &newAreaDePestanas);
@@ -64,9 +63,6 @@ public:
 
     int getSencibilidad() const;
     void setSencibilidad(int newSencibilidad);
-
-    EstiloQss::ActivacionCustom getEstiloDePestanas() const;
-    void setEstiloDePestanas(EstiloQss::ActivacionCustom newEstiloDePestanas);
 
     QFont getFondDeLetra() const;
     void setFondDeLetra(const QFont &newFondDeLetra);
@@ -109,6 +105,9 @@ public:
 
 
 
+    bool getActivacionCustomEstiloQss() const;
+    void setActivacionCustomEstiloQss(bool newActivacionCustomEstiloQss);
+
 signals:
     void areaDePestanasChanged();
     void separacionEntrePestanaChanged();
@@ -132,6 +131,8 @@ signals:
     void radioIzquierdoAbajoChanged();
     void radioDerechoArribaChanged();
     void radioDerechoAbajoChanged();
+
+    void activacionCustomEstiloQssChanged();
 
 private:
     CustomTabBar *tabBar = new CustomTabBar(this);
@@ -163,8 +164,7 @@ private:
 
     //-------------------------------------tabSistemaDeEstiloQssPestanas------------------------//
 
-    EstiloQss::ActivacionCustom estiloDePestanas = estiloQss->getActivacion();
-
+    bool activacionCustomEstiloQss = estiloQss->getActivacionCustom();
     //Qfont
 
     QFont FondDeLetra = estiloQss->getFondDeLetra();

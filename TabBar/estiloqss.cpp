@@ -121,10 +121,10 @@ QString EstiloQss::tabInformacionSelecionado(QFont fondDeLETRA, QColor fondo, QC
 
 void EstiloQss::atualizacionDeEstado(CustomTabBar *tabBar)
 {
-    if (activacion == PorDefecto)
+    if (!activacionCustom)
     {
         tabBar->setStyleSheet("");
-    }else if (activacion == Modificar) {
+    }else if (activacionCustom) {
         tabBar->setStyleSheet(TabInfomacionPredeterminado(FondDeLetra,fondoTabPredeterminado,colorBordeTabPredeterminado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo) +
                              TabInformacionHover(FondDeLetra,fondoTabHover,colorBordeTabHover,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo) +
                              TabInformacionPresione(FondDeLetra,fondoTabPrecionado,colorBordeTabPrecionado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo)+
@@ -302,15 +302,15 @@ void EstiloQss::setColorBordeTabPrecionado(const QColor &newColorBordeTabPrecion
     emit colorBordeTabPrecionadoChanged();
 }
 
-EstiloQss::ActivacionCustom EstiloQss::getActivacion() const
+bool EstiloQss::getActivacionCustom() const
 {
-    return activacion;
+    return activacionCustom;
 }
 
-void EstiloQss::setActivacion(ActivacionCustom newActivacion)
+void EstiloQss::setActivacionCustom(bool newActivacionCustom)
 {
-    if (activacion == newActivacion)
+    if (activacionCustom == newActivacionCustom)
         return;
-    activacion = newActivacion;
-    emit activacionChanged();
+    activacionCustom = newActivacionCustom;
+    emit activacionCustomChanged();
 }

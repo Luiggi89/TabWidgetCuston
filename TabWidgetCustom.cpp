@@ -126,21 +126,6 @@ void TabWidgetCustom::setSencibilidad(int newSencibilidad)
     emit sencibilidadChanged();
 }
 
-EstiloQss::ActivacionCustom TabWidgetCustom::getEstiloDePestanas() const
-{
-    return estiloDePestanas;
-}
-
-void TabWidgetCustom::setEstiloDePestanas(EstiloQss::ActivacionCustom newEstiloDePestanas)
-{
-    if (estiloDePestanas == newEstiloDePestanas)
-        return;
-    estiloDePestanas = newEstiloDePestanas;
-    estiloQss->setActivacion(estiloDePestanas);
-    estiloQss->atualizacionDeEstado(tabBar);
-    emit estiloDePestanasChanged();
-}
-
 QFont TabWidgetCustom::getFondDeLetra() const
 {
     return FondDeLetra;
@@ -334,4 +319,21 @@ void TabWidgetCustom::setRadioDerechoAbajo(int newRadioDerechoAbajo)
     estiloQss->setRadioDerechoAbajo(radioDerechoAbajo);
     estiloQss->atualizacionDeEstado(tabBar);
     emit radioDerechoAbajoChanged();
+}
+
+bool TabWidgetCustom::getActivacionCustomEstiloQss() const
+{
+    return activacionCustomEstiloQss;
+}
+
+void TabWidgetCustom::setActivacionCustomEstiloQss(bool newActivacionCustomEstiloQss)
+{
+    if (activacionCustomEstiloQss == newActivacionCustomEstiloQss)
+        return;
+    activacionCustomEstiloQss = newActivacionCustomEstiloQss;
+
+    estiloQss->setActivacionCustom(activacionCustomEstiloQss);
+    estiloQss->atualizacionDeEstado(tabBar);
+
+    emit activacionCustomEstiloQssChanged();
 }
