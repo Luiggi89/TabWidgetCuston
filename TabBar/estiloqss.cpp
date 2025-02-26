@@ -101,6 +101,7 @@ QString EstiloQss::TabInformacionHover(QFont fondDeLETRA, QColor fondo, QColor c
 QString EstiloQss::TabInformacionPresione(QFont fondDeLETRA, QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
 {
     return TabIndividualPresione(estiloDeLetra(fondDeLETRA)+
+                                 fondoTabBar(fondo)+
                                  colorBorde(colorBord)+
                                  bordesRadiusIzquierdaArriba(radioIzquierdaArriba) +
                                  bordesRadiusAbajoIzquierda(radioIzquierdaAbajo)+
