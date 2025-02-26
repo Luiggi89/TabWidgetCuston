@@ -26,7 +26,7 @@ void SistemaDeScrool::setSensibilidad(int newSensibilidad)
 {
     if (sensibilidad == newSensibilidad)
         return;
-    sensibilidad = newSensibilidad;
+    sensibilidad = qBound(1, newSensibilidad, 20);
     emit sensibilidadChanged();
 }
 

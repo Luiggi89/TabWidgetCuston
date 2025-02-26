@@ -58,22 +58,22 @@ QString EstiloQss::bordesRadiusAbajoDerecha(int radioAbajo)
 
 QString EstiloQss::TabIndividual(QString complementario)
 {
-    return "QTabBar::tab { " + complementario + "};";
+    return "QTabBar::tab { " + complementario + "} ";
 }
 
 QString EstiloQss::TabIndividualHover(QString complementario)
 {
-    return "QTabBar::tab:hover { " + complementario + "};";
+    return "QTabBar::tab:hover{ " + complementario + "} ";
 }
 
 QString EstiloQss::TabIndividualPresione(QString complementario)
 {
-    return "QTabBar::tab:pressed{ " + complementario + " };";
+    return "QTabBar::tab:pressed{ " + complementario + " } ";
 }
 
 QString EstiloQss::TabIndividualSelecionado(QString complementario)
 {
-    return "QTabBar::tab:selected {" + complementario + "};";
+    return "QTabBar::tab:selected{" + complementario + "} ";
 }
 
 QString EstiloQss::TabInfomacionPredeterminado(QFont fondDeLETRA, QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)

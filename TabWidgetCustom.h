@@ -14,9 +14,12 @@ class TabWidgetCustom : public QTabWidget
 
     Q_PROPERTY(QSize areaDePestanas READ getAreaDePestanas WRITE setAreaDePestanas NOTIFY areaDePestanasChanged FINAL)
     Q_PROPERTY(int separacionEntrePestana READ getSeparacionEntrePestana WRITE setSeparacionEntrePestana NOTIFY separacionEntrePestanaChanged FINAL)
+
     Q_PROPERTY(int MargenDeTextoDerecha READ getMargenDeTextoDerecha WRITE setMargenDeTextoDerecha NOTIFY MargenDeTextoDerechaChanged FINAL)
+    Q_PROPERTY(QPoint PaddingTexto READ getPaddingTexto WRITE setPaddingTexto NOTIFY PaddingTextoChanged FINAL)
     Q_PROPERTY(QColor colorTexto READ getColorTexto WRITE setColorTexto NOTIFY colorTextoChanged FINAL)
     Q_PROPERTY(bool cambiarColorTexto READ getCambiarColorTexto WRITE setCambiarColorTexto NOTIFY cambiarColorTextoChanged FINAL)
+
     Q_PROPERTY(QColor ColorFondo READ getColorFondo WRITE setColorFondo NOTIFY ColorFondoChanged FINAL)
     Q_PROPERTY(bool cambiarColorFondo READ getCambiarColorFondo WRITE setCambiarColorFondo NOTIFY cambiarColorFondoChanged FINAL)
     Q_PROPERTY(int sencibilidad READ getSencibilidad WRITE setSencibilidad NOTIFY sencibilidadChanged FINAL)
@@ -108,6 +111,19 @@ public:
     bool getActivacionCustomEstiloQss() const;
     void setActivacionCustomEstiloQss(bool newActivacionCustomEstiloQss);
 
+    QPoint getPaddingTexto() const
+    {
+        return PaddingTexto;
+    }
+    void setPaddingTexto(QPoint newPaddingTexto)
+    {
+        if (PaddingTexto == newPaddingTexto)
+            return;
+        PaddingTexto = newPaddingTexto;
+        sistemaDeDibujosTexto->setPadingTexto(PaddingTexto);
+        emit PaddingTextoChanged();
+    }
+
 signals:
     void areaDePestanasChanged();
     void separacionEntrePestanaChanged();
@@ -134,6 +150,8 @@ signals:
 
     void activacionCustomEstiloQssChanged();
 
+    void PaddingTextoChanged();
+
 private:
     CustomTabBar *tabBar = new CustomTabBar(this);
     SistemaDeDibujoTexto* sistemaDeDibujosTexto = tabBar->sistemaDeDibujaTexto;
@@ -149,6 +167,7 @@ private:
     //-------------------------------------tabText------------------------------------//
 
     int MargenDeTextoDerecha = sistemaDeDibujosTexto->getMargenDerechoTextoDerecho();
+    QPoint PaddingTexto = sistemaDeDibujosTexto->getPadingTexto();
 
     QColor colorTexto = sistemaDeDibujosTexto->getColorTextoCambiar();
     bool cambiarColorTexto = sistemaDeDibujosTexto->getCambiarColorTexto();

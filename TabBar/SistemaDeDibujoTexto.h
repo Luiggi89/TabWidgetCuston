@@ -21,6 +21,9 @@ public:
     explicit SistemaDeDibujoTexto(QObject *parent = nullptr);
 
 private:
+
+    QPoint PadingTexto = QPoint(0,0);
+
     int margenDerechoTextoDerecho = 10;
 
     QColor colorText;
@@ -32,6 +35,8 @@ private:
     QString elidedText;
 
 
+
+    Q_PROPERTY(QPoint PadingTexto READ getPadingTexto WRITE setPadingTexto NOTIFY PadingTextoChanged FINAL)
 
 public:
     void actualizarText(QStyleOptionTab &opt, QTabBar *tabBar);
@@ -47,10 +52,14 @@ public:
     bool getCambiarColorTexto() const;
     void setCambiarColorTexto(bool newCambiarColorTexto);
 
+    QPoint getPadingTexto() const;
+    void setPadingTexto(QPoint newPadingTexto);
+
 signals:
     void margenDerechoTextoDerechoChanged();
     void colorTextoCambiarChanged();
     void cambiarColorTextoChanged();
+    void PadingTextoChanged();
 };
 
 #endif // SISTEMADEDIBUJOTEXTO_H
