@@ -10,7 +10,9 @@ QString EstiloQss::estiloDeLetra(QFont letra)
     QString tamanoDeletra = QString::number(tamanoDeLETRA);
     QString grosorDeLetra = letra.styleName();
     QString FamiliaDeLETRA = letra.family();
-    return "font:" + grosorDeLetra + tamanoDeletra + FamiliaDeLETRA + " ;";
+    QString comillas = "\"";
+
+    return "font:" + grosorDeLetra + tamanoDeletra + comillas+ FamiliaDeLETRA + comillas +" ;";
 }
 
 QString EstiloQss::fondoTabBar(QColor fondo)
@@ -56,6 +58,38 @@ QString EstiloQss::bordesRadiusAbajoDerecha(int radioAbajo)
     return "border-bottom-right-radius:" + radio + ";";
 }
 
+QString EstiloQss::bordesGrosorArriba(int grosor, QColor color)
+{
+    QString grosorTexto = QString::number(grosor);
+    QString colorDeTexto = color.name();
+
+    return "border-top: " + grosorTexto + "px " + "solid " + colorDeTexto;
+}
+
+QString EstiloQss::bordesGrosorIzquierda(int grosor, QColor color)
+{
+    QString grosorTexto = QString::number(grosor);
+    QString colorDeTexto = color.name();
+
+    return "border-left: " + grosorTexto + "px " + "solid " + colorDeTexto;
+}
+
+QString EstiloQss::bordesGrosorDerecha(int grosor, QColor color)
+{
+    QString grosorTexto = QString::number(grosor);
+    QString colorDeTexto = color.name();
+
+    return "border-right: " + grosorTexto + "px " + "solid " + colorDeTexto;
+}
+
+QString EstiloQss::bordesGrosorAbajo(int grosor, QColor color)
+{
+    QString grosorTexto = QString::number(grosor);
+    QString colorDeTexto = color.name();
+
+    return "border-bottom: " + grosorTexto + "px " + "solid " + colorDeTexto;
+}
+
 QString EstiloQss::TabIndividual(QString complementario)
 {
     return "QTabBar::tab { " + complementario + "} ";
@@ -76,47 +110,60 @@ QString EstiloQss::TabIndividualSelecionado(QString complementario)
     return "QTabBar::tab:selected{" + complementario + "} ";
 }
 
-QString EstiloQss::TabInfomacionPredeterminado(QFont fondDeLETRA, QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
+QString EstiloQss::TabInfomacionPredeterminado()
 {
-    return TabIndividual(estiloDeLetra(fondDeLETRA) +
-                         fondoTabBar(fondo)+
-                         colorBorde(colorBord)+
-                         bordesRadiusIzquierdaArriba(radioIzquierdaArriba) +
-                         bordesRadiusAbajoIzquierda(radioIzquierdaAbajo)+
-                         bordesRadiusDerechaArriba(radioDerechaArriba) +
-                         bordesRadiusAbajoDerecha(radioDerechaAbajo));
+    return TabIndividual(estiloDeLetra(FondDeLetra) +
+                         fondoTabBar(fondoTabPredeterminado)+
+                         bordesGrosorArriba(bordeSuperiorPredeterminado,colorBordeTabPredeterminadoSuperior)+
+                         bordesGrosorAbajo(bordeInferiorPredeterminado, colorBordeTabPredeterminadoInferior)+
+                         bordesGrosorDerecha(bordeDerechoPredeterminado, colorBordeTabPredeterminadoDerecho)+
+                         bordesGrosorIzquierda(bordeIzquierdaPredeterminado, colorBordeTabPredeterminadoIzquierdo)+
+                         bordesRadiusIzquierdaArriba(radioIzquierdoArriba) +
+                         bordesRadiusAbajoIzquierda(radioIzquierdoAbajo)+
+                         bordesRadiusDerechaArriba(radioDerechoArriba) +
+                         bordesRadiusAbajoDerecha(radioDerechoAbajo));
 }
 
-QString EstiloQss::TabInformacionHover(QFont fondDeLETRA, QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
+QString EstiloQss::TabInformacionHover()
 {
-    return TabIndividualHover(estiloDeLetra(fondDeLETRA)+
-                              fondoTabBar(fondo)+
-                              colorBorde(colorBord)+
-                              bordesRadiusIzquierdaArriba(radioIzquierdaArriba) +
-                              bordesRadiusAbajoIzquierda(radioIzquierdaAbajo)+
-                              bordesRadiusDerechaArriba(radioDerechaArriba) +
-                              bordesRadiusAbajoDerecha(radioDerechaAbajo));
+    return TabIndividualHover(estiloDeLetra(FondDeLetra) +
+                              fondoTabBar(fondoTabHover)+
+                              bordesGrosorArriba(bordeSuperiorHover,colorBordeTabHoverSuperior)+
+                              bordesGrosorAbajo(bordeInferiorHover, colorBordeTabHoverInferior)+
+                              bordesGrosorDerecha(bordeDerechoHover, colorBordeTabHoverDerecho)+
+                              bordesGrosorIzquierda(bordeIzquierdaHover, colorBordeTabHoverIzquierdo)+
+                              bordesRadiusIzquierdaArriba(radioIzquierdoArriba) +
+                              bordesRadiusAbajoIzquierda(radioIzquierdoAbajo)+
+                              bordesRadiusDerechaArriba(radioDerechoArriba) +
+                              bordesRadiusAbajoDerecha(radioDerechoAbajo));
 }
 
-QString EstiloQss::TabInformacionPresione(QFont fondDeLETRA, QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
+QString EstiloQss::TabInformacionPresione()
 {
-    return TabIndividualPresione(estiloDeLetra(fondDeLETRA)+
-                                 fondoTabBar(fondo)+
-                                 colorBorde(colorBord)+
-                                 bordesRadiusIzquierdaArriba(radioIzquierdaArriba) +
-                                 bordesRadiusAbajoIzquierda(radioIzquierdaAbajo)+
-                                 bordesRadiusDerechaArriba(radioDerechaArriba) +
-                                 bordesRadiusAbajoDerecha(radioDerechaAbajo));
+    return TabIndividualHover(estiloDeLetra(FondDeLetra) +
+                              fondoTabBar(fondoTabPrecionado)+
+                              bordesGrosorArriba(bordeSuperiorPresionado,colorBordeTabPrecionadoSuperior)+
+                              bordesGrosorAbajo(bordeInferiorPresionado, colorBordeTabPrecionadoInferior)+
+                              bordesGrosorDerecha(bordeDerechoPresionado, colorBordeTabPrecionadoDerecho)+
+                              bordesGrosorIzquierda(bordeIzquierdaPresionado, colorBordeTabPrecionadoIzquierdo)+
+                              bordesRadiusIzquierdaArriba(radioIzquierdoArriba) +
+                              bordesRadiusAbajoIzquierda(radioIzquierdoAbajo)+
+                              bordesRadiusDerechaArriba(radioDerechoArriba) +
+                              bordesRadiusAbajoDerecha(radioDerechoAbajo));
 }
 
-QString EstiloQss::tabInformacionSelecionado(QFont fondDeLETRA, QColor fondo, QColor colorBord, int radioIzquierdaArriba, int radioIzquierdaAbajo, int radioDerechaArriba, int radioDerechaAbajo)
+QString EstiloQss::tabInformacionSelecionado()
 {
-    return TabIndividualSelecionado(estiloDeLetra(fondDeLETRA) + fondoTabBar(fondo)+
-                                    colorBorde(colorBord)+
-                                    bordesRadiusIzquierdaArriba(radioIzquierdaArriba) +
-                                    bordesRadiusAbajoIzquierda(radioIzquierdaAbajo)+
-                                    bordesRadiusDerechaArriba(radioDerechaArriba) +
-                                    bordesRadiusAbajoDerecha(radioDerechaAbajo));
+    return TabIndividualSelecionado(estiloDeLetra(FondDeLetra) +
+                                    fondoTabBar(fondoTabSelecionado)+
+                                    bordesGrosorArriba(bordeSuperiorSelecionado,colorBordeTabSelecionadoSuperior)+
+                                    bordesGrosorAbajo(bordeInferiorSelecionado, colorBordeTabSelecionadoInferior)+
+                                    bordesGrosorDerecha(bordeDerechoSelecionado, colorBordeTabSelecionadoDerecho)+
+                                    bordesGrosorIzquierda(bordeIzquierdaSelecionado, colorBordeTabPrecionadoIzquierdo)+
+                                    bordesRadiusIzquierdaArriba(radioIzquierdoArriba) +
+                                    bordesRadiusAbajoIzquierda(radioIzquierdoAbajo)+
+                                    bordesRadiusDerechaArriba(radioDerechoArriba) +
+                                    bordesRadiusAbajoDerecha(radioDerechoAbajo));
 }
 
 void EstiloQss::atualizacionDeEstado(CustomTabBar *tabBar)
@@ -125,10 +172,10 @@ void EstiloQss::atualizacionDeEstado(CustomTabBar *tabBar)
     {
         tabBar->setStyleSheet("");
     }else if (activacionCustom) {
-        tabBar->setStyleSheet(TabInfomacionPredeterminado(FondDeLetra,fondoTabPredeterminado,colorBordeTabPredeterminado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo) +
-                             TabInformacionHover(FondDeLetra,fondoTabHover,colorBordeTabHover,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo) +
-                             TabInformacionPresione(FondDeLetra,fondoTabPrecionado,colorBordeTabPrecionado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo)+
-                             tabInformacionSelecionado(FondDeLetra,fondoTabSelecionado,colorBordeTabSelecionado,radioIzquierdoArriba,radioIzquierdoAbajo, radioDerechoArriba,radioDerechoAbajo));
+        tabBar->setStyleSheet(TabInfomacionPredeterminado() +
+                             TabInformacionHover() +
+                             TabInformacionPresione()+
+                             tabInformacionSelecionado());
     }
 
 }
@@ -198,45 +245,6 @@ void EstiloQss::setFondoTabSelecionado(const QColor &newFondoTabSelecionado)
     emit fondoTabSelecionadoChanged();
 }
 
-QColor EstiloQss::getColorBordeTabPredeterminado() const
-{
-    return colorBordeTabPredeterminado;
-}
-
-void EstiloQss::setColorBordeTabPredeterminado(const QColor &newColorBordeTabPredeterminado)
-{
-    if (colorBordeTabPredeterminado == newColorBordeTabPredeterminado)
-        return;
-    colorBordeTabPredeterminado = newColorBordeTabPredeterminado;
-    emit colorBordeTabPredeterminadoChanged();
-}
-
-QColor EstiloQss::getColorBordeTabHover() const
-{
-    return colorBordeTabHover;
-}
-
-void EstiloQss::setColorBordeTabHover(const QColor &newColorBordeTabHover)
-{
-    if (colorBordeTabHover == newColorBordeTabHover)
-        return;
-    colorBordeTabHover = newColorBordeTabHover;
-    emit colorBordeTabHoverChanged();
-}
-
-QColor EstiloQss::getColorBordeTabSelecionado() const
-{
-    return colorBordeTabSelecionado;
-}
-
-void EstiloQss::setColorBordeTabSelecionado(const QColor &newColorBordeTabSelecionado)
-{
-    if (colorBordeTabSelecionado == newColorBordeTabSelecionado)
-        return;
-    colorBordeTabSelecionado = newColorBordeTabSelecionado;
-    emit colorBordeTabSelecionadoChanged();
-}
-
 int EstiloQss::getRadioIzquierdoArriba() const
 {
     return radioIzquierdoArriba;
@@ -288,20 +296,6 @@ void EstiloQss::setRadioDerechoAbajo(int newRadioDerechoAbajo)
     radioDerechoAbajo = newRadioDerechoAbajo;
     emit radioDerechoAbajoChanged();
 }
-
-QColor EstiloQss::getColorBordeTabPrecionado() const
-{
-    return colorBordeTabPrecionado;
-}
-
-void EstiloQss::setColorBordeTabPrecionado(const QColor &newColorBordeTabPrecionado)
-{
-    if (colorBordeTabPrecionado == newColorBordeTabPrecionado)
-        return;
-    colorBordeTabPrecionado = newColorBordeTabPrecionado;
-    emit colorBordeTabPrecionadoChanged();
-}
-
 bool EstiloQss::getActivacionCustom() const
 {
     return activacionCustom;
@@ -313,4 +307,420 @@ void EstiloQss::setActivacionCustom(bool newActivacionCustom)
         return;
     activacionCustom = newActivacionCustom;
     emit activacionCustomChanged();
+}
+
+QColor EstiloQss::getColorBordeTabPredeterminadoSuperior() const
+{
+    return colorBordeTabPredeterminadoSuperior;
+}
+
+void EstiloQss::setColorBordeTabPredeterminadoSuperior(const QColor &newColorBordeTabPredeterminadoSuperior)
+{
+    if (colorBordeTabPredeterminadoSuperior == newColorBordeTabPredeterminadoSuperior)
+        return;
+    colorBordeTabPredeterminadoSuperior = newColorBordeTabPredeterminadoSuperior;
+    emit colorBordeTabPredeterminadoSuperiorChanged();
+}
+
+QColor EstiloQss::getColorBordeTabHoverSuperior() const
+{
+    return colorBordeTabHoverSuperior;
+}
+
+void EstiloQss::setColorBordeTabHoverSuperior(const QColor &newColorBordeTabHoverSuperior)
+{
+    if (colorBordeTabHoverSuperior == newColorBordeTabHoverSuperior)
+        return;
+    colorBordeTabHoverSuperior = newColorBordeTabHoverSuperior;
+    emit colorBordeTabHoverSuperiorChanged();
+}
+
+QColor EstiloQss::getColorBordeTabPrecionadoSuperior() const
+{
+    return colorBordeTabPrecionadoSuperior;
+}
+
+void EstiloQss::setColorBordeTabPrecionadoSuperior(const QColor &newColorBordeTabPrecionadoSuperior)
+{
+    if (colorBordeTabPrecionadoSuperior == newColorBordeTabPrecionadoSuperior)
+        return;
+    colorBordeTabPrecionadoSuperior = newColorBordeTabPrecionadoSuperior;
+    emit colorBordeTabPrecionadoSuperiorChanged();
+}
+
+QColor EstiloQss::getColorBordeTabSelecionadoSuperior() const
+{
+    return colorBordeTabSelecionadoSuperior;
+}
+
+void EstiloQss::setColorBordeTabSelecionadoSuperior(const QColor &newColorBordeTabSelecionadoSuperior)
+{
+    if (colorBordeTabSelecionadoSuperior == newColorBordeTabSelecionadoSuperior)
+        return;
+    colorBordeTabSelecionadoSuperior = newColorBordeTabSelecionadoSuperior;
+    emit colorBordeTabSelecionadoSuperiorChanged();
+}
+
+QColor EstiloQss::getColorBordeTabPredeterminadoInferior() const
+{
+    return colorBordeTabPredeterminadoInferior;
+}
+
+void EstiloQss::setColorBordeTabPredeterminadoInferior(const QColor &newColorBordeTabPredeterminadoInferior)
+{
+    if (colorBordeTabPredeterminadoInferior == newColorBordeTabPredeterminadoInferior)
+        return;
+    colorBordeTabPredeterminadoInferior = newColorBordeTabPredeterminadoInferior;
+    emit colorBordeTabPredeterminadoInferiorChanged();
+}
+
+QColor EstiloQss::getColorBordeTabHoverInferior() const
+{
+    return colorBordeTabHoverInferior;
+}
+
+void EstiloQss::setColorBordeTabHoverInferior(const QColor &newColorBordeTabHoverInferior)
+{
+    if (colorBordeTabHoverInferior == newColorBordeTabHoverInferior)
+        return;
+    colorBordeTabHoverInferior = newColorBordeTabHoverInferior;
+    emit colorBordeTabHoverInferiorChanged();
+}
+
+QColor EstiloQss::getColorBordeTabPrecionadoInferior() const
+{
+    return colorBordeTabPrecionadoInferior;
+}
+
+void EstiloQss::setColorBordeTabPrecionadoInferior(const QColor &newColorBordeTabPrecionadoInferior)
+{
+    if (colorBordeTabPrecionadoInferior == newColorBordeTabPrecionadoInferior)
+        return;
+    colorBordeTabPrecionadoInferior = newColorBordeTabPrecionadoInferior;
+    emit colorBordeTabPrecionadoInferiorChanged();
+}
+
+QColor EstiloQss::getColorBordeTabSelecionadoInferior() const
+{
+    return colorBordeTabSelecionadoInferior;
+}
+
+void EstiloQss::setColorBordeTabSelecionadoInferior(const QColor &newColorBordeTabSelecionadoInferior)
+{
+    if (colorBordeTabSelecionadoInferior == newColorBordeTabSelecionadoInferior)
+        return;
+    colorBordeTabSelecionadoInferior = newColorBordeTabSelecionadoInferior;
+    emit colorBordeTabSelecionadoInferiorChanged();
+}
+
+QColor EstiloQss::getColorBordeTabPredeterminadoIzquierdo() const
+{
+    return colorBordeTabPredeterminadoIzquierdo;
+}
+
+void EstiloQss::setColorBordeTabPredeterminadoIzquierdo(const QColor &newColorBordeTabPredeterminadoIzquierdo)
+{
+    if (colorBordeTabPredeterminadoIzquierdo == newColorBordeTabPredeterminadoIzquierdo)
+        return;
+    colorBordeTabPredeterminadoIzquierdo = newColorBordeTabPredeterminadoIzquierdo;
+    emit colorBordeTabPredeterminadoIzquierdoChanged();
+}
+
+QColor EstiloQss::getColorBordeTabHoverIzquierdo() const
+{
+    return colorBordeTabHoverIzquierdo;
+}
+
+void EstiloQss::setColorBordeTabHoverIzquierdo(const QColor &newColorBordeTabHoverIzquierdo)
+{
+    if (colorBordeTabHoverIzquierdo == newColorBordeTabHoverIzquierdo)
+        return;
+    colorBordeTabHoverIzquierdo = newColorBordeTabHoverIzquierdo;
+    emit colorBordeTabHoverIzquierdoChanged();
+}
+
+QColor EstiloQss::getColorBordeTabPrecionadoIzquierdo() const
+{
+    return colorBordeTabPrecionadoIzquierdo;
+}
+
+void EstiloQss::setColorBordeTabPrecionadoIzquierdo(const QColor &newColorBordeTabPrecionadoIzquierdo)
+{
+    if (colorBordeTabPrecionadoIzquierdo == newColorBordeTabPrecionadoIzquierdo)
+        return;
+    colorBordeTabPrecionadoIzquierdo = newColorBordeTabPrecionadoIzquierdo;
+    emit colorBordeTabPrecionadoIzquierdoChanged();
+}
+
+QColor EstiloQss::getColorBordeTabSelecionadoIzquierdo() const
+{
+    return colorBordeTabSelecionadoIzquierdo;
+}
+
+void EstiloQss::setColorBordeTabSelecionadoIzquierdo(const QColor &newColorBordeTabSelecionadoIzquierdo)
+{
+    if (colorBordeTabSelecionadoIzquierdo == newColorBordeTabSelecionadoIzquierdo)
+        return;
+    colorBordeTabSelecionadoIzquierdo = newColorBordeTabSelecionadoIzquierdo;
+    emit colorBordeTabSelecionadoIzquierdoChanged();
+}
+
+QColor EstiloQss::getColorBordeTabPredeterminadoDerecho() const
+{
+    return colorBordeTabPredeterminadoDerecho;
+}
+
+void EstiloQss::setColorBordeTabPredeterminadoDerecho(const QColor &newColorBordeTabPredeterminadoDerecho)
+{
+    if (colorBordeTabPredeterminadoDerecho == newColorBordeTabPredeterminadoDerecho)
+        return;
+    colorBordeTabPredeterminadoDerecho = newColorBordeTabPredeterminadoDerecho;
+    emit colorBordeTabPredeterminadoDerechoChanged();
+}
+
+QColor EstiloQss::getColorBordeTabHoverDerecho() const
+{
+    return colorBordeTabHoverDerecho;
+}
+
+void EstiloQss::setColorBordeTabHoverDerecho(const QColor &newColorBordeTabHoverDerecho)
+{
+    if (colorBordeTabHoverDerecho == newColorBordeTabHoverDerecho)
+        return;
+    colorBordeTabHoverDerecho = newColorBordeTabHoverDerecho;
+    emit colorBordeTabHoverDerechoChanged();
+}
+
+QColor EstiloQss::getColorBordeTabPrecionadoDerecho() const
+{
+    return colorBordeTabPrecionadoDerecho;
+}
+
+void EstiloQss::setColorBordeTabPrecionadoDerecho(const QColor &newColorBordeTabPrecionadoDerecho)
+{
+    if (colorBordeTabPrecionadoDerecho == newColorBordeTabPrecionadoDerecho)
+        return;
+    colorBordeTabPrecionadoDerecho = newColorBordeTabPrecionadoDerecho;
+    emit colorBordeTabPrecionadoDerechoChanged();
+}
+
+QColor EstiloQss::getColorBordeTabSelecionadoDerecho() const
+{
+    return colorBordeTabSelecionadoDerecho;
+}
+
+void EstiloQss::setColorBordeTabSelecionadoDerecho(const QColor &newColorBordeTabSelecionadoDerecho)
+{
+    if (colorBordeTabSelecionadoDerecho == newColorBordeTabSelecionadoDerecho)
+        return;
+    colorBordeTabSelecionadoDerecho = newColorBordeTabSelecionadoDerecho;
+    emit colorBordeTabSelecionadoDerechoChanged();
+}
+
+int EstiloQss::getBordeSuperiorPredeterminado() const
+{
+    return bordeSuperiorPredeterminado;
+}
+
+void EstiloQss::setBordeSuperiorPredeterminado(int newBordeSuperiorPredeterminado)
+{
+    if (bordeSuperiorPredeterminado == newBordeSuperiorPredeterminado)
+        return;
+    bordeSuperiorPredeterminado = newBordeSuperiorPredeterminado;
+    emit bordeSuperiorPredeterminadoChanged();
+}
+
+int EstiloQss::getBordeInferiorPredeterminado() const
+{
+    return bordeInferiorPredeterminado;
+}
+
+void EstiloQss::setBordeInferiorPredeterminado(int newBordeInferiorPredeterminado)
+{
+    if (bordeInferiorPredeterminado == newBordeInferiorPredeterminado)
+        return;
+    bordeInferiorPredeterminado = newBordeInferiorPredeterminado;
+    emit bordeInferiorPredeterminadoChanged();
+}
+
+int EstiloQss::getBordeIzquierdaPredeterminado() const
+{
+    return bordeIzquierdaPredeterminado;
+}
+
+void EstiloQss::setBordeIzquierdaPredeterminado(int newBordeIzquierdaPredeterminado)
+{
+    if (bordeIzquierdaPredeterminado == newBordeIzquierdaPredeterminado)
+        return;
+    bordeIzquierdaPredeterminado = newBordeIzquierdaPredeterminado;
+    emit bordeIzquierdaPredeterminadoChanged();
+}
+
+int EstiloQss::getBordeDerechoPredeterminado() const
+{
+    return bordeDerechoPredeterminado;
+}
+
+void EstiloQss::setBordeDerechoPredeterminado(int newBordeDerechoPredeterminado)
+{
+    if (bordeDerechoPredeterminado == newBordeDerechoPredeterminado)
+        return;
+    bordeDerechoPredeterminado = newBordeDerechoPredeterminado;
+    emit bordeDerechoPredeterminadoChanged();
+}
+
+int EstiloQss::getBordeSuperiorHover() const
+{
+    return bordeSuperiorHover;
+}
+
+void EstiloQss::setBordeSuperiorHover(int newBordeSuperiorHover)
+{
+    if (bordeSuperiorHover == newBordeSuperiorHover)
+        return;
+    bordeSuperiorHover = newBordeSuperiorHover;
+    emit bordeSuperiorHoverChanged();
+}
+
+int EstiloQss::getBordeInferiorHover() const
+{
+    return bordeInferiorHover;
+}
+
+void EstiloQss::setBordeInferiorHover(int newBordeInferiorHover)
+{
+    if (bordeInferiorHover == newBordeInferiorHover)
+        return;
+    bordeInferiorHover = newBordeInferiorHover;
+    emit bordeInferiorHoverChanged();
+}
+
+int EstiloQss::getBordeIzquierdaHover() const
+{
+    return bordeIzquierdaHover;
+}
+
+void EstiloQss::setBordeIzquierdaHover(int newBordeIzquierdaHover)
+{
+    if (bordeIzquierdaHover == newBordeIzquierdaHover)
+        return;
+    bordeIzquierdaHover = newBordeIzquierdaHover;
+    emit bordeIzquierdaHoverChanged();
+}
+
+int EstiloQss::getBordeDerechoHover() const
+{
+    return bordeDerechoHover;
+}
+
+void EstiloQss::setBordeDerechoHover(int newBordeDerechoHover)
+{
+    if (bordeDerechoHover == newBordeDerechoHover)
+        return;
+    bordeDerechoHover = newBordeDerechoHover;
+    emit bordeDerechoHoverChanged();
+}
+
+int EstiloQss::getBordeSuperiorPresionado() const
+{
+    return bordeSuperiorPresionado;
+}
+
+void EstiloQss::setBordeSuperiorPresionado(int newBordeSuperiorPresionado)
+{
+    if (bordeSuperiorPresionado == newBordeSuperiorPresionado)
+        return;
+    bordeSuperiorPresionado = newBordeSuperiorPresionado;
+    emit bordeSuperiorPresionadoChanged();
+}
+
+int EstiloQss::getBordeInferiorPresionado() const
+{
+    return bordeInferiorPresionado;
+}
+
+void EstiloQss::setBordeInferiorPresionado(int newBordeInferiorPresionado)
+{
+    if (bordeInferiorPresionado == newBordeInferiorPresionado)
+        return;
+    bordeInferiorPresionado = newBordeInferiorPresionado;
+    emit bordeInferiorPresionadoChanged();
+}
+
+int EstiloQss::getBordeIzquierdaPresionado() const
+{
+    return bordeIzquierdaPresionado;
+}
+
+void EstiloQss::setBordeIzquierdaPresionado(int newBordeIzquierdaPresionado)
+{
+    if (bordeIzquierdaPresionado == newBordeIzquierdaPresionado)
+        return;
+    bordeIzquierdaPresionado = newBordeIzquierdaPresionado;
+    emit bordeIzquierdaPresionadoChanged();
+}
+
+int EstiloQss::getBordeDerechoPresionado() const
+{
+    return bordeDerechoPresionado;
+}
+
+void EstiloQss::setBordeDerechoPresionado(int newBordeDerechoPresionado)
+{
+    if (bordeDerechoPresionado == newBordeDerechoPresionado)
+        return;
+    bordeDerechoPresionado = newBordeDerechoPresionado;
+    emit bordeDerechoPresionadoChanged();
+}
+
+int EstiloQss::getBordeSuperiorSelecionado() const
+{
+    return bordeSuperiorSelecionado;
+}
+
+void EstiloQss::setBordeSuperiorSelecionado(int newBordeSuperiorSelecionado)
+{
+    if (bordeSuperiorSelecionado == newBordeSuperiorSelecionado)
+        return;
+    bordeSuperiorSelecionado = newBordeSuperiorSelecionado;
+    emit bordeSuperiorSelecionadoChanged();
+}
+
+int EstiloQss::getBordeInferiorSelecionado() const
+{
+    return bordeInferiorSelecionado;
+}
+
+void EstiloQss::setBordeInferiorSelecionado(int newBordeInferiorSelecionado)
+{
+    if (bordeInferiorSelecionado == newBordeInferiorSelecionado)
+        return;
+    bordeInferiorSelecionado = newBordeInferiorSelecionado;
+    emit bordeInferiorSelecionadoChanged();
+}
+
+int EstiloQss::getBordeIzquierdaSelecionado() const
+{
+    return bordeIzquierdaSelecionado;
+}
+
+void EstiloQss::setBordeIzquierdaSelecionado(int newBordeIzquierdaSelecionado)
+{
+    if (bordeIzquierdaSelecionado == newBordeIzquierdaSelecionado)
+        return;
+    bordeIzquierdaSelecionado = newBordeIzquierdaSelecionado;
+    emit bordeIzquierdaSelecionadoChanged();
+}
+
+int EstiloQss::getBordeDerechoSelecionado() const
+{
+    return bordeDerechoSelecionado;
+}
+
+void EstiloQss::setBordeDerechoSelecionado(int newBordeDerechoSelecionado)
+{
+    if (bordeDerechoSelecionado == newBordeDerechoSelecionado)
+        return;
+    bordeDerechoSelecionado = newBordeDerechoSelecionado;
+    emit bordeDerechoSelecionadoChanged();
 }

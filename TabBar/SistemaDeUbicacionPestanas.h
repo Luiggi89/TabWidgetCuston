@@ -12,6 +12,11 @@ class SistemaDeUbicacionPestanas : public QObject
     Q_OBJECT
     Q_PROPERTY(int separacionPestana READ getSeparacionPestana WRITE setSeparacionPestana NOTIFY separacionPestanaChanged FINAL)
     Q_PROPERTY(QSize AreaDeLaPestana READ getAreaDeLaPestana WRITE setAreaDeLaPestana NOTIFY AreaDeLaPestanaChanged FINAL)
+
+    Q_PROPERTY(int aumentar_Largo_Y_Delcontenedor READ getAumentar_Largo_Y_Delcontenedor WRITE setAumentar_Largo_Y_Delcontenedor NOTIFY aumentar_Largo_Y_DelcontenedorChanged FINAL)
+    Q_PROPERTY(int movimientoYDelasPestanas READ getMovimientoYDelasPestanas WRITE setMovimientoYDelasPestanas NOTIFY movimientoYDelasPestanasChanged FINAL)
+
+
     Q_PROPERTY(QVector<int> anchoIndividualPestanasX READ getAnchoIndividualPestanasX WRITE setAnchoIndividualPestanasX NOTIFY anchoIndividualPestanasXChanged FINAL)
     Q_PROPERTY(QVector<int> margenesEntrePestanasX READ getMargenesEntrePestanasX WRITE setMargenesEntrePestanasX NOTIFY margenesEntrePestanasXChanged FINAL)
     Q_PROPERTY(QVector<int> positionPestanasIndividual_X READ getPositionPestanasIndividual_X WRITE setPositionPestanasIndividual_X NOTIFY positionPestanasIndividual_XChanged FINAL)
@@ -54,12 +59,16 @@ private:
     int separacionPestana = 20;
     QSize AreaDeLaPestana = QSize (100,20);
 
+    int aumentar_Largo_Y_Delcontenedor = 0;
+    int movimientoYDelasPestanas = 0;
+
     mutable QVector  <int> anchoIndividualPestanasX = {AreaDeLaPestana.width()};
     mutable QVector  <int> margenesEntrePestanasX = {separacionPestana};
     mutable QVector  <int> positionPestanasIndividual_X = {0};
 
     mutable QVector  <QRect> HitBOx_DE_La_SeparacionDePestanas = {QRect (AreaDeLaPestana.width(),0,separacionPestana,AreaDeLaPestana.height())};
     mutable QVector  <QRect> HitBOx_DE_La_Pestanas = {QRect (0,0,AreaDeLaPestana.width(), AreaDeLaPestana.height())};
+
 
 signals:
     void separacionPestanaChanged();
@@ -70,11 +79,22 @@ signals:
     void HitBOx_DE_La_SeparacionDePestanasChanged();
     void HitBOx_DE_La_PestanasChanged();
 
+    void aumentar_Largo_Y_DelcontenedorChanged();
+
+    void movimientoYDelasPestanasChanged();
+
 public:
-    void actulizarListaInforPestanas(int index, int count, int TabSizeHintX, int movilidadScroll) const;
-    void InsertarInformacionPestanas(int index, int count,int TabSizeHintX, int movilidadScroll);
+    void actulizarListaInforPestanas(int index, int count, int TabSizeHintX, int movilidadScroll, int anchoDelContenedor) const;
+    void InsertarInformacionPestanas(int index, int count,int TabSizeHintX, int movilidadScroll, int anchoDelContenedor);
+
     void EliminarInformacionPestana (int index);
+
     int quePestañasFueUbicado(QPoint point, int count);
+
+    int getAumentar_Largo_Y_Delcontenedor() const;
+    void setAumentar_Largo_Y_Delcontenedor(int newAumentar_Largo_Y_Delcontenedor);
+    int getMovimientoYDelasPestanas() const;
+    void setMovimientoYDelasPestanas(int newMovimientoYDelasPestanas);
 };
 
 #endif // SISTEMADEUBICACIONPESTANAS_H

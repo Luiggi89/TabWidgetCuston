@@ -14,6 +14,8 @@ class TabWidgetCustom : public QTabWidget
 
     Q_PROPERTY(QSize areaDePestanas READ getAreaDePestanas WRITE setAreaDePestanas NOTIFY areaDePestanasChanged FINAL)
     Q_PROPERTY(int separacionEntrePestana READ getSeparacionEntrePestana WRITE setSeparacionEntrePestana NOTIFY separacionEntrePestanaChanged FINAL)
+    Q_PROPERTY(int aumentarLargoContenedor READ getAumentarLargoContenedor WRITE setAumentarLargoContenedor NOTIFY aumentarLargoContenedorChanged FINAL)
+    Q_PROPERTY(int movimientoYDelasPestanas READ getMovimientoYDelasPestanas WRITE setMovimientoYDelasPestanas NOTIFY movimientoYDelasPestanasChanged FINAL)
 
     Q_PROPERTY(int MargenDeTextoDerecha READ getMargenDeTextoDerecha WRITE setMargenDeTextoDerecha NOTIFY MargenDeTextoDerechaChanged FINAL)
     Q_PROPERTY(QPoint PaddingTexto READ getPaddingTexto WRITE setPaddingTexto NOTIFY PaddingTextoChanged FINAL)
@@ -26,14 +28,12 @@ class TabWidgetCustom : public QTabWidget
 
     Q_PROPERTY(bool activacionCustomEstiloQss READ getActivacionCustomEstiloQss WRITE setActivacionCustomEstiloQss NOTIFY activacionCustomEstiloQssChanged FINAL)
     Q_PROPERTY(QFont FondDeLetra READ getFondDeLetra WRITE setFondDeLetra NOTIFY FondDeLetraChanged FINAL)
+
     Q_PROPERTY(QColor fondoTabPredeterminado READ getFondoTabPredeterminado WRITE setFondoTabPredeterminado NOTIFY fondoTabPredeterminadoChanged FINAL)
     Q_PROPERTY(QColor fondoTabHover READ getFondoTabHover WRITE setFondoTabHover NOTIFY fondoTabHoverChanged FINAL)
     Q_PROPERTY(QColor fondoTabPrecionado READ getFondoTabPrecionado WRITE setFondoTabPrecionado NOTIFY fondoTabPrecionadoChanged FINAL)
     Q_PROPERTY(QColor fondoTabSelecionado READ getFondoTabSelecionado WRITE setFondoTabSelecionado NOTIFY fondoTabSelecionadoChanged FINAL)
-    Q_PROPERTY(QColor colorBordeTabPredeterminado READ getColorBordeTabPredeterminado WRITE setColorBordeTabPredeterminado NOTIFY colorBordeTabPredeterminadoChanged FINAL)
-    Q_PROPERTY(QColor colorBordeTabHover READ getColorBordeTabHover WRITE setColorBordeTabHover NOTIFY colorBordeTabHoverChanged FINAL)
-    Q_PROPERTY(QColor colorBordeTabPrecionado READ getColorBordeTabPrecionado WRITE setColorBordeTabPrecionado NOTIFY colorBordeTabPrecionadoChanged FINAL)
-    Q_PROPERTY(QColor colorBordeTabSelecionado READ getColorBordeTabSelecionado WRITE setColorBordeTabSelecionado NOTIFY colorBordeTabSelecionadoChanged FINAL)
+
     Q_PROPERTY(int radioIzquierdoArriba READ getRadioIzquierdoArriba WRITE setRadioIzquierdoArriba NOTIFY radioIzquierdoArribaChanged FINAL)
     Q_PROPERTY(int radioIzquierdoAbajo READ getRadioIzquierdoAbajo WRITE setRadioIzquierdoAbajo NOTIFY radioIzquierdoAbajoChanged FINAL)
     Q_PROPERTY(int radioDerechoArriba READ getRadioDerechoArriba WRITE setRadioDerechoArriba NOTIFY radioDerechoArribaChanged FINAL)
@@ -82,18 +82,6 @@ public:
     QColor getFondoTabSelecionado() const;
     void setFondoTabSelecionado(const QColor &newFondoTabSelecionado);
 
-    QColor getColorBordeTabPredeterminado() const;
-    void setColorBordeTabPredeterminado(const QColor &newColorBordeTabPredeterminado);
-
-    QColor getColorBordeTabHover() const;
-    void setColorBordeTabHover(const QColor &newColorBordeTabHover);
-
-    QColor getColorBordeTabPrecionado() const;
-    void setColorBordeTabPrecionado(const QColor &newColorBordeTabPrecionado);
-
-    QColor getColorBordeTabSelecionado() const;
-    void setColorBordeTabSelecionado(const QColor &newColorBordeTabSelecionado);
-
     int getRadioIzquierdoArriba() const;
     void setRadioIzquierdoArriba(int newRadioIzquierdoArriba);
 
@@ -111,18 +99,14 @@ public:
     bool getActivacionCustomEstiloQss() const;
     void setActivacionCustomEstiloQss(bool newActivacionCustomEstiloQss);
 
-    QPoint getPaddingTexto() const
-    {
-        return PaddingTexto;
-    }
-    void setPaddingTexto(QPoint newPaddingTexto)
-    {
-        if (PaddingTexto == newPaddingTexto)
-            return;
-        PaddingTexto = newPaddingTexto;
-        sistemaDeDibujosTexto->setPadingTexto(PaddingTexto);
-        emit PaddingTextoChanged();
-    }
+    QPoint getPaddingTexto() const;
+    void setPaddingTexto(QPoint newPaddingTexto);
+
+    int getAumentarLargoContenedor() const;
+    void setAumentarLargoContenedor(int newAumentarLargoContenedor);
+
+    int getMovimientoYDelasPestanas() const;
+    void setMovimientoYDelasPestanas(int newMovimientoYDelasPestanas);
 
 signals:
     void areaDePestanasChanged();
@@ -134,15 +118,13 @@ signals:
     void cambiarColorFondoChanged();
     void sencibilidadChanged();
     void estiloDePestanasChanged();
+
     void FondDeLetraChanged();
     void fondoTabPredeterminadoChanged();
     void fondoTabHoverChanged();
     void fondoTabPrecionadoChanged();
     void fondoTabSelecionadoChanged();
-    void colorBordeTabPredeterminadoChanged();
-    void colorBordeTabHoverChanged();
-    void colorBordeTabPrecionadoChanged();
-    void colorBordeTabSelecionadoChanged();
+
     void radioIzquierdoArribaChanged();
     void radioIzquierdoAbajoChanged();
     void radioDerechoArribaChanged();
@@ -151,6 +133,10 @@ signals:
     void activacionCustomEstiloQssChanged();
 
     void PaddingTextoChanged();
+
+    void aumentarLargoContenedorChanged();
+
+    void movimientoYDelasPestanasChanged();
 
 private:
     CustomTabBar *tabBar = new CustomTabBar(this);
@@ -164,6 +150,10 @@ private:
     //--------------------------------------tabUbicacion-------------------------------//
     QSize areaDePestanas = sistemaDeUbicacionPestanas->getAreaDeLaPestana();
     int separacionEntrePestana = sistemaDeUbicacionPestanas->getSeparacionPestana();
+
+    int aumentarLargoContenedor = sistemaDeUbicacionPestanas->getAumentar_Largo_Y_Delcontenedor();
+    int movimientoYDelasPestanas = sistemaDeUbicacionPestanas->getMovimientoYDelasPestanas();
+
     //-------------------------------------tabText------------------------------------//
 
     int MargenDeTextoDerecha = sistemaDeDibujosTexto->getMargenDerechoTextoDerecho();
@@ -195,12 +185,62 @@ private:
     QColor fondoTabPrecionado = estiloQss->getFondoTabPrecionado();
     QColor fondoTabSelecionado = estiloQss->getFondoTabSelecionado();
 
-    //color Borde
+    //color BordeSuperior
 
-    QColor colorBordeTabPredeterminado = estiloQss->getColorBordeTabPredeterminado();
-    QColor colorBordeTabHover = estiloQss->getColorBordeTabHover();
-    QColor colorBordeTabPrecionado = estiloQss->getColorBordeTabPrecionado();
-    QColor colorBordeTabSelecionado = estiloQss->getColorBordeTabSelecionado();
+    QColor colorBordeTabPredeterminadoSuperior = estiloQss->getColorBordeTabHoverSuperior();
+    QColor colorBordeTabHoverSuperior = estiloQss->getColorBordeTabHoverSuperior();
+    QColor colorBordeTabPrecionadoSuperior = estiloQss->getColorBordeTabPrecionadoSuperior();
+    QColor colorBordeTabSelecionadoSuperior = estiloQss->getColorBordeTabSelecionadoSuperior();
+
+    //color BordeInferior
+
+    QColor colorBordeTabPredeterminadoInferior = estiloQss->getColorBordeTabPrecionadoInferior();
+    QColor colorBordeTabHoverInferior = estiloQss->getColorBordeTabPrecionadoInferior();
+    QColor colorBordeTabPrecionadoInferior = estiloQss->getColorBordeTabPrecionadoInferior();
+    QColor colorBordeTabSelecionadoInferior = estiloQss->getColorBordeTabSelecionadoInferior();
+
+    //color izquierdo
+
+    QColor colorBordeTabPredeterminadoIzquierdo;
+    QColor colorBordeTabHoverIzquierdo;
+    QColor colorBordeTabPrecionadoIzquierdo;
+    QColor colorBordeTabSelecionadoIzquierdo;
+
+    //color Derecho
+
+    QColor colorBordeTabPredeterminadoDerecho;
+    QColor colorBordeTabHoverDerecho;
+    QColor colorBordeTabPrecionadoDerecho;
+    QColor colorBordeTabSelecionadoDerecho;
+
+    //Grosor de los bordes predeterminado
+
+    int bordeSuperiorPredeterminado = 1;
+    int bordeInferiorPredeterminado = 1;
+    int bordeIzquierdaPredeterminado = 1;
+    int bordeDerechoPredeterminado = 1;
+
+    //Grosor de los bordes hover
+
+    int bordeSuperiorHover = 1;
+    int bordeInferiorHover = 1;
+    int bordeIzquierdaHover = 1;
+    int bordeDerechoHover = 1;
+
+    //Grosor de los bordes precionado
+
+    int bordeSuperiorPresionado = 1;
+    int bordeInferiorPresionado = 1;
+    int bordeIzquierdaPresionado = 1;
+    int bordeDerechoPresionado = 1;
+
+    //Grosor de los bordes selecionado
+
+    int bordeSuperiorSelecionado = 1;
+    int bordeInferiorSelecionado = 1;
+    int bordeIzquierdaSelecionado = 1;
+    int bordeDerechoSelecionado = 1;
+
 
     //Radios de LosBrodes
 

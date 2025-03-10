@@ -10,7 +10,9 @@ CustomTabBar::CustomTabBar(QWidget *parent)
 void CustomTabBar::tabInserted(int index)
 {
     QTabBar::tabInserted(index);
-    sistemaDeUbicacionPestana->InsertarInformacionPestanas(index, count(),tabSizeHint(index).width(), sistemasDeScrool->getMovilidadDeScroll());
+    QString l = QString::number(index);
+    setTabWhatsThis(index,l);
+    sistemaDeUbicacionPestana->InsertarInformacionPestanas(index, count(),tabSizeHint(index).width(), sistemasDeScrool->getMovilidadDeScroll(),sizeHint().height());
 }
 
 
@@ -37,7 +39,7 @@ QSize CustomTabBar::resizeVoid()
         totalAreaDeLasPestanas += sistemaDeUbicacionPestana->getAnchoIndividualPestanasX().at(var)
         + sistemaDeUbicacionPestana->getMargenesEntrePestanasX().at(var);
     }
-    return QSize(totalAreaDeLasPestanas, sistemaDeUbicacionPestana->getAreaDeLaPestana().height());
+    return QSize(totalAreaDeLasPestanas, sistemaDeUbicacionPestana->getAreaDeLaPestana().height() + sistemaDeUbicacionPestana->getAumentar_Largo_Y_Delcontenedor());
 }
 
 
@@ -54,7 +56,7 @@ QSize CustomTabBar::sizeHint() const
         totalAreaDeLasPestanas += sistemaDeUbicacionPestana->getAnchoIndividualPestanasX().at(var)
                                   + sistemaDeUbicacionPestana->getMargenesEntrePestanasX().at(var);
     }
-    return QSize(totalAreaDeLasPestanas, sistemaDeUbicacionPestana->getAreaDeLaPestana().height());
+    return QSize(totalAreaDeLasPestanas, sistemaDeUbicacionPestana->getAreaDeLaPestana().height() + sistemaDeUbicacionPestana->getAumentar_Largo_Y_Delcontenedor());
 }
 
 
@@ -68,11 +70,9 @@ QSize CustomTabBar::minimumSizeHint() const
 void CustomTabBar::paintEvent(QPaintEvent *event)
 {
     QStylePainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
     for (int i = 0; i < count(); ++i) {
         dibujarPestanas(i, painter);
     }
-
     QWidget::paintEvent(event);  // Llama a la implementación base
 }
 
@@ -81,7 +81,7 @@ void CustomTabBar::paintEvent(QPaintEvent *event)
 void CustomTabBar::initStyleOption(QStyleOptionTab *option, int tabIndex) const
 {
     sistemasDeScrool->recalcularAnchoScrool(sizeHint().width(), parentWidget()->width());
-    sistemaDeUbicacionPestana->actulizarListaInforPestanas(tabIndex, count(), tabSizeHint(tabIndex).width(), sistemasDeScrool->getMovilidadDeScroll());
+    sistemaDeUbicacionPestana->actulizarListaInforPestanas(tabIndex, count(), tabSizeHint(tabIndex).width(), sistemasDeScrool->getMovilidadDeScroll(), sizeHint().height());
     option->rect = sistemaDeUbicacionPestana->getHitBOx_DE_La_Pestanas().at(tabIndex);
     sistemaDeEstiloPestanas->actualizarEstiloDeLasPestanas(option, tabIndex, this);
 }

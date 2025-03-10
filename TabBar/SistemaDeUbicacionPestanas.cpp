@@ -125,8 +125,9 @@ void SistemaDeUbicacionPestanas::setIndividualHitBOx_DE_La_Pestanas(const QRect 
     emit separacionPestanaChanged();
 }
 
-void SistemaDeUbicacionPestanas::actulizarListaInforPestanas(int index, int count, int TabSizeHintX, int movilidadScroll) const
+void SistemaDeUbicacionPestanas::actulizarListaInforPestanas(int index, int count, int TabSizeHintX, int movilidadScroll, int anchoDelContenedor) const
 {
+    int calculatePositionPestanas = (aumentar_Largo_Y_Delcontenedor/2)+movimientoYDelasPestanas;
     //actualiza los valores de la lista para las posiciones
     if (index == count -1) {
         margenesEntrePestanasX[index] = 0;
@@ -146,15 +147,16 @@ void SistemaDeUbicacionPestanas::actulizarListaInforPestanas(int index, int coun
             margenesEntrePestanasX[index] +
             anchoIndividualPestanasX[index];
     }
-    HitBOx_DE_La_SeparacionDePestanas[index] = QRect(positionPestanasIndividual_X[index] + anchoIndividualPestanasX[index],0, margenesEntrePestanasX[index],AreaDeLaPestana.height());
-    HitBOx_DE_La_Pestanas [index] = QRect(positionPestanasIndividual_X[index],0, anchoIndividualPestanasX[index], AreaDeLaPestana.height());
+    HitBOx_DE_La_SeparacionDePestanas[index] = QRect(positionPestanasIndividual_X[index] + anchoIndividualPestanasX[index],calculatePositionPestanas, margenesEntrePestanasX[index],AreaDeLaPestana.height());
+    HitBOx_DE_La_Pestanas [index] = QRect(positionPestanasIndividual_X[index],calculatePositionPestanas, anchoIndividualPestanasX[index], AreaDeLaPestana.height());
 
 }
 
-void SistemaDeUbicacionPestanas::InsertarInformacionPestanas(int index, int count, int TabSizeHintX, int movilidadScroll)
+void SistemaDeUbicacionPestanas::InsertarInformacionPestanas(int index, int count, int TabSizeHintX, int movilidadScroll, int anchoDelContenedor)
 {
     int amortiguador = 1;
     int SumaIndiceMasAmortiguador = count + amortiguador;
+    int calculatePositionPestanas = (aumentar_Largo_Y_Delcontenedor/2)+movimientoYDelasPestanas;
 
     for (int var = margenesEntrePestanasX.count(); var < SumaIndiceMasAmortiguador; ++var) {
 
@@ -169,8 +171,8 @@ void SistemaDeUbicacionPestanas::InsertarInformacionPestanas(int index, int coun
                                                    margenesEntrePestanasX[index]);
         }
 
-        HitBOx_DE_La_SeparacionDePestanas.push_back(QRect(positionPestanasIndividual_X[index] + anchoIndividualPestanasX[index],0, margenesEntrePestanasX[index],AreaDeLaPestana.height()));
-        HitBOx_DE_La_Pestanas.push_back(QRect(positionPestanasIndividual_X[index],0, anchoIndividualPestanasX[index], AreaDeLaPestana.height()));
+        HitBOx_DE_La_SeparacionDePestanas.push_back(QRect(positionPestanasIndividual_X[index] + anchoIndividualPestanasX[index],calculatePositionPestanas, margenesEntrePestanasX[index],AreaDeLaPestana.height()));
+        HitBOx_DE_La_Pestanas.push_back(QRect(positionPestanasIndividual_X[index],0, anchoIndividualPestanasX[index], anchoDelContenedor));
     }
 }
 
@@ -194,4 +196,30 @@ int SistemaDeUbicacionPestanas::quePestañasFueUbicado(QPoint point, int count)
         }
     }
     return -1;
+}
+
+int SistemaDeUbicacionPestanas::getAumentar_Largo_Y_Delcontenedor() const
+{
+    return aumentar_Largo_Y_Delcontenedor;
+}
+
+void SistemaDeUbicacionPestanas::setAumentar_Largo_Y_Delcontenedor(int newAumentar_Largo_Y_Delcontenedor)
+{
+    if (aumentar_Largo_Y_Delcontenedor == newAumentar_Largo_Y_Delcontenedor)
+        return;
+    aumentar_Largo_Y_Delcontenedor = newAumentar_Largo_Y_Delcontenedor;
+    emit aumentar_Largo_Y_DelcontenedorChanged();
+}
+
+int SistemaDeUbicacionPestanas::getMovimientoYDelasPestanas() const
+{
+    return movimientoYDelasPestanas;
+}
+
+void SistemaDeUbicacionPestanas::setMovimientoYDelasPestanas(int newMovimientoYDelasPestanas)
+{
+    if (movimientoYDelasPestanas == newMovimientoYDelasPestanas)
+        return;
+    movimientoYDelasPestanas = newMovimientoYDelasPestanas;
+    emit movimientoYDelasPestanasChanged();
 }

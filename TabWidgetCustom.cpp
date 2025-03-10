@@ -201,66 +201,6 @@ void TabWidgetCustom::setFondoTabSelecionado(const QColor &newFondoTabSelecionad
     emit fondoTabSelecionadoChanged();
 }
 
-QColor TabWidgetCustom::getColorBordeTabPredeterminado() const
-{
-    return colorBordeTabPredeterminado;
-}
-
-void TabWidgetCustom::setColorBordeTabPredeterminado(const QColor &newColorBordeTabPredeterminado)
-{
-    if (colorBordeTabPredeterminado == newColorBordeTabPredeterminado)
-        return;
-    colorBordeTabPredeterminado = newColorBordeTabPredeterminado;
-    estiloQss->setColorBordeTabPredeterminado(colorBordeTabPredeterminado);
-    estiloQss->atualizacionDeEstado(tabBar);
-    emit colorBordeTabPredeterminadoChanged();
-}
-
-QColor TabWidgetCustom::getColorBordeTabHover() const
-{
-    return colorBordeTabHover;
-}
-
-void TabWidgetCustom::setColorBordeTabHover(const QColor &newColorBordeTabHover)
-{
-    if (colorBordeTabHover == newColorBordeTabHover)
-        return;
-    colorBordeTabHover = newColorBordeTabHover;
-    estiloQss->setColorBordeTabHover(colorBordeTabHover);
-    estiloQss->atualizacionDeEstado(tabBar);
-    emit colorBordeTabHoverChanged();
-}
-
-QColor TabWidgetCustom::getColorBordeTabPrecionado() const
-{
-    return colorBordeTabPrecionado;
-}
-
-void TabWidgetCustom::setColorBordeTabPrecionado(const QColor &newColorBordeTabPrecionado)
-{
-    if (colorBordeTabPrecionado == newColorBordeTabPrecionado)
-        return;
-    colorBordeTabPrecionado = newColorBordeTabPrecionado;
-    estiloQss->setColorBordeTabPrecionado(colorBordeTabPrecionado);
-    estiloQss->atualizacionDeEstado(tabBar);
-    emit colorBordeTabPrecionadoChanged();
-}
-
-QColor TabWidgetCustom::getColorBordeTabSelecionado() const
-{
-    return colorBordeTabSelecionado;
-}
-
-void TabWidgetCustom::setColorBordeTabSelecionado(const QColor &newColorBordeTabSelecionado)
-{
-    if (colorBordeTabSelecionado == newColorBordeTabSelecionado)
-        return;
-    colorBordeTabSelecionado = newColorBordeTabSelecionado;
-    estiloQss->setColorBordeTabSelecionado(colorBordeTabSelecionado);
-    estiloQss->atualizacionDeEstado(tabBar);
-    emit colorBordeTabSelecionadoChanged();
-}
-
 int TabWidgetCustom::getRadioIzquierdoArriba() const
 {
     return radioIzquierdoArriba;
@@ -336,4 +276,47 @@ void TabWidgetCustom::setActivacionCustomEstiloQss(bool newActivacionCustomEstil
     estiloQss->atualizacionDeEstado(tabBar);
 
     emit activacionCustomEstiloQssChanged();
+}
+
+QPoint TabWidgetCustom::getPaddingTexto() const
+{
+    return PaddingTexto;
+}
+
+void TabWidgetCustom::setPaddingTexto(QPoint newPaddingTexto)
+{
+    if (PaddingTexto == newPaddingTexto)
+        return;
+    PaddingTexto = newPaddingTexto;
+    sistemaDeDibujosTexto->setPadingTexto(PaddingTexto);
+    emit PaddingTextoChanged();
+}
+
+int TabWidgetCustom::getAumentarLargoContenedor() const
+{
+    return aumentarLargoContenedor;
+}
+
+void TabWidgetCustom::setAumentarLargoContenedor(int newAumentarLargoContenedor)
+{
+    if (aumentarLargoContenedor == newAumentarLargoContenedor)
+        return;
+    aumentarLargoContenedor = newAumentarLargoContenedor;
+    sistemaDeUbicacionPestanas->setAumentar_Largo_Y_Delcontenedor(aumentarLargoContenedor);
+    tabBar->resizeVoid();
+    emit aumentarLargoContenedorChanged();
+}
+
+int TabWidgetCustom::getMovimientoYDelasPestanas() const
+{
+    return movimientoYDelasPestanas;
+}
+
+void TabWidgetCustom::setMovimientoYDelasPestanas(int newMovimientoYDelasPestanas)
+{
+    if (movimientoYDelasPestanas == newMovimientoYDelasPestanas)
+        return;
+    movimientoYDelasPestanas = newMovimientoYDelasPestanas;
+    sistemaDeUbicacionPestanas->setMovimientoYDelasPestanas(movimientoYDelasPestanas);
+    emit movimientoYDelasPestanasChanged();
 }
